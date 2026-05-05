@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* ─── CSS variables (brand + shadcn/ui) ─── */
+:root {
+  /* brand palette */
+  --brand-forest: #2f4a3f;
+  --brand-sage: #6d846f;
+  --brand-leaf: #a7b89a;
+  --brand-sand: #f2e8da;
+  --brand-ivory: #faf7f2;
+
+  /* shadcn/ui semantic tokens mapped to brand */
+  --background: var(--brand-ivory);
+  --foreground: var(--brand-forest);
+
+  --card: #ffffff;
+  --card-foreground: var(--brand-forest);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--brand-forest);
+
+  --primary: var(--brand-forest);
+  --primary-foreground: var(--brand-ivory);
+
+  --secondary: var(--brand-sand);
+  --secondary-foreground: var(--brand-forest);
+
+  --muted: var(--brand-sand);
+  --muted-foreground: var(--brand-sage);
+
+  --accent: var(--brand-sand);
+  --accent-foreground: var(--brand-forest);
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: rgba(47, 74, 63, 0.16);
+  --input: rgba(47, 74, 63, 0.16);
+  --ring: var(--brand-sage);
+
+  --radius: 0.625rem;
+}
+
+/* ─── Tailwind 4 theme ─── */
+@theme inline {
+  /* expose brand colors as Tailwind utilities */
+  --color-brand-forest: var(--brand-forest);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-leaf: var(--brand-leaf);
+  --color-brand-sand: var(--brand-sand);
+  --color-brand-ivory: var(--brand-ivory);
+
+  /* expose semantic tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* fonts */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  /* border radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ─── Base styles ─── */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, Arial, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
