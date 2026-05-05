@@ -1,48 +1,38 @@
-# Branch Flow
+ Branch Flow
 
 ## Branches principais
 
 ### main
-Branch estável de produção.
-
-Regras:
-- Não receber commits diretos.
-- Só recebe merge a partir da `develop` após validação.
-- Deve estar sempre deployável.
+Produção estável. Só recebe merge de `develop` após validação completa.
 
 ### develop
-Branch de integração e homologação.
-
-Regras:
-- Não receber commits diretos.
-- Recebe merges das branches de task após revisão.
-- Deve passar testes antes do merge.
+Integração contínua. Base para todas as tasks. Sempre retornar aqui após finalizar.
 
 ## Branches de task
 
-Padrão:
-
+## Padrão:
+```
 lp-cp-{TASK-ID}-{descricao-curta}
-
-Exemplo:
-
+```
+## Exemplo:
+```
 lp-cp-TASK-001-setup-next
+```
+## Fluxo
 
-## Fluxo obrigatório
-
-1. Criar issue para a task.
-2. Criar branch a partir de `develop`.
-3. Executar somente o escopo da issue.
-4. Criar ou atualizar testes quando necessário.
-5. Rodar lint, typecheck e testes.
-6. Abrir PR/MR para `develop`.
-7. Aguardar aprovação.
-8. Fazer merge somente após validação.
+1. Criar issue
+2. Criar branch **a partir de `develop`**
+3. Executar o escopo da issue
+4. Criar ou atualizar testes
+5. Rodar lint, typecheck e testes
+6. Abrir PR para `develop`
+7. Após merge, **retornar para `develop`**
 
 ## Regras
 
-- Uma branch deve resolver apenas uma task.
-- Não misturar refatoração com feature.
-- Não alterar arquitetura sem atualizar `/docs/architecture.md`.
-- Não alterar regras de acessibilidade sem atualizar `/docs/accessibility.md`.
-- Toda mudança relevante deve ser refletida no `/docs/sdd.md` ou documentação relacionada.
+- Uma branch = uma task
+- Não misturar refatoração com feature
+- Atualizar `/docs/architecture.md` se alterar arquitetura
+- Atualizar `/docs/accessibility.md` se alterar acessibilidade
+- Refletir mudanças relevantes em `/docs/sdd.md`
+- **Sempre voltar para `develop` após finalizar**
