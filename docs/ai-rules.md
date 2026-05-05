@@ -1,0 +1,10 @@
+- Não alterar arquitetura sem autorização.
+- Não remover acessibilidade.
+- Não criar diagnóstico psicológico.
+- Não usar dados sensíveis hardcoded.
+- Usar .env para WhatsApp, Instagram, LinkedIn e API URL.
+- Sempre criar testes quando criar regra de negócio.
+- Sempre validar formulário com schema.
+- Sempre manter componentes pequenos.
+- Sempre seguir App Router do Next.js.
+- Sempre explicar mudanças no final.
