@@ -1,13 +1,13 @@
 type LogLevel = 'info' | 'warn' | 'error';
 
-type LogPayload = {
+interface LogPayload {
   level: LogLevel;
   message: string;
   context?: Record<string, unknown>;
   error?: unknown;
-};
+}
 
-function log(payload: LogPayload) {
+function writeLog(payload: LogPayload): void {
   const timestamp = new Date().toISOString();
   const { level, message, context, error } = payload;
 
@@ -26,11 +26,11 @@ function log(payload: LogPayload) {
 
 export const logger = {
   info: (message: string, context?: Record<string, unknown>) =>
-    log({ level: 'info', message, context }),
+    writeLog({ level: 'info', message, context }),
 
   warn: (message: string, context?: Record<string, unknown>) =>
-    log({ level: 'warn', message, context }),
+    writeLog({ level: 'warn', message, context }),
 
   error: (message: string, context?: Record<string, unknown>, error?: unknown) =>
-    log({ level: 'error', message, context, error }),
+    writeLog({ level: 'error', message, context, error }),
 };

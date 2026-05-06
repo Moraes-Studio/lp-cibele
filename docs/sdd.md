@@ -186,7 +186,6 @@ src/
     utils.ts
     validations.ts
     logger.ts
-    analytics.ts
     rate-limit.ts
 
   types/
@@ -864,17 +863,15 @@ Conteúdo sugerido:
 ```ts
 export const siteConfig = {
   name: 'Cibele Rosa',
-  title: 'Cibele Rosa | Psicologia Clínica para Adultos',
+  role: 'Psicologia Clínica para Adultos',
   description:
     'Atendimento em psicologia clínica para adultos com foco em saúde emocional, autoconhecimento, transições de vida e fortalecimento interno.',
-  professionalName: 'Cibele Rosa',
-  role: 'Psicologia Clínica para Adultos',
-  crp: process.env.NEXT_PUBLIC_CRP || 'CRP a definir',
-  phone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
-  email: process.env.NEXT_PUBLIC_EMAIL || '',
-  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '',
-  linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL || '',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://cibelepsicologia.com.br',
+  crp: process.env.NEXT_PUBLIC_CRP ?? '',
+  phone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '',
+  email: process.env.NEXT_PUBLIC_EMAIL ?? '',
+  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? '',
+  linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? '',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cibelepsicologia.com.br',
 } as const;
 ```
 
@@ -1340,29 +1337,42 @@ Implementação:
 ```ts
 import { z } from 'zod';
 
+// z.preprocess trata strings vazias (LINKEDIN_URL=) como undefined
+const optionalUrl = z.preprocess(
+  (v) => (v === '' ? undefined : v),
+  z.string().url().optional()
+);
+
+const optionalEmail = z.preprocess(
+  (v) => (v === '' ? undefined : v),
+  z.string().email().optional()
+);
+
+const optionalStr = z.preprocess(
+  (v) => (v === '' ? undefined : v),
+  z.string().optional()
+);
+
 const envSchema = z.object({
-  // Server-side only
   RESEND_API_KEY: z.string().min(1),
   CONTACT_EMAIL_TO: z.string().email(),
   CONTACT_EMAIL_FROM: z.string().email(),
-
-  // Public
   NEXT_PUBLIC_SITE_URL: z.string().url(),
-  NEXT_PUBLIC_WHATSAPP_NUMBER: z.string().optional(),
-  NEXT_PUBLIC_INSTAGRAM_URL: z.string().url().optional(),
-  NEXT_PUBLIC_LINKEDIN_URL: z.string().url().optional(),
-  NEXT_PUBLIC_CRP: z.string().optional(),
-  NEXT_PUBLIC_EMAIL: z.string().email().optional(),
+  NEXT_PUBLIC_WHATSAPP_NUMBER: optionalStr,
+  NEXT_PUBLIC_INSTAGRAM_URL: optionalUrl,
+  NEXT_PUBLIC_LINKEDIN_URL: optionalUrl,
+  NEXT_PUBLIC_CRP: optionalStr,
+  NEXT_PUBLIC_EMAIL: optionalEmail,
 });
 
-const parsedEnv = envSchema.safeParse(process.env);
+const parsed = envSchema.safeParse(process.env);
 
-if (!parsedEnv.success) {
-  console.error('❌ Invalid environment variables:', parsedEnv.error.flatten());
+if (!parsed.success) {
+  console.error('❌ Invalid environment variables:', parsed.error.flatten());
   throw new Error('Invalid environment variables');
 }
 
-export const env = parsedEnv.data;
+export const env = parsed.data;
 ```
 
 Regras:
@@ -2651,6 +2661,361 @@ Não crie funcionalidades fora do escopo.
 Não altere a identidade visual definida.
 ```
 
+## 29.6 Agents obrigatórios de validação
+
+O projeto deve utilizar agents especializados para garantir qualidade arquitetural, consistência visual, acessibilidade, testes automatizados e conformidade com os princípios definidos neste SDD.
+
+Os agents funcionam como validadores obrigatórios antes da conclusão de qualquer task, PR/MR ou refatoração importante.
+
+---
+
+### Agent 1 — Playwright Test Guardian
+
+Responsável por validar fluxos reais do usuário, testes E2E, acessibilidade funcional e estabilidade da aplicação.
+
+#### Objetivos
+
+* Garantir que os fluxos principais funcionem corretamente.
+* Validar comportamento real do usuário.
+* Garantir acessibilidade básica funcional.
+* Validar responsividade.
+* Evitar regressões críticas.
+
+#### Responsabilidades
+
+* Criar testes E2E com Playwright.
+* Validar formulários.
+* Validar navegação.
+* Validar estados de loading.
+* Validar estados de erro e sucesso.
+* Validar funcionamento do WhatsApp button.
+* Validar navegação por teclado.
+* Validar comportamento mobile.
+* Validar fluxo completo do formulário de contato.
+
+#### Regras obrigatórias
+
+* Não criar testes frágeis.
+* Evitar seletores baseados em estrutura visual.
+* Preferir:
+  * `getByRole`
+  * `getByLabel`
+  * `getByText`
+* Utilizar `data-testid` apenas quando necessário.
+* Cada teste deve validar apenas um comportamento claro.
+* Não testar implementação interna.
+* Testar comportamento visível ao usuário.
+* Garantir testes independentes.
+* Não reutilizar estado entre testes.
+
+#### Fluxos obrigatórios
+
+```txt
+Usuário acessa Home
+Usuário navega para Serviços
+Usuário navega para Contato
+Usuário envia formulário inválido
+Usuário envia formulário válido
+Usuário visualiza loading
+Usuário visualiza feedback de sucesso
+Usuário clica no WhatsApp
+Usuário navega usando teclado
+Usuário acessa em mobile
+```
+
+---
+
+### Agent 2 — Architecture Guardian
+
+Responsável por garantir que o código siga rigorosamente os princípios arquiteturais, padrões de estrutura e convenções definidos neste SDD.
+
+#### Objetivos
+
+* Garantir que nenhum arquivo esteja no lugar errado.
+* Validar que as responsabilidades de cada camada estão respeitadas.
+* Impedir que lógica de negócio vaze para camadas erradas.
+* Garantir que nomenclaturas seguem o padrão do projeto.
+* Evitar abstrações prematuras e overengineering.
+
+#### Responsabilidades
+
+* Validar estrutura de pastas conforme seção 7.
+* Verificar que componentes `ui` não contêm lógica de negócio.
+* Verificar que `sections` não importam outras `sections`.
+* Verificar que `shared` contém apenas componentes verdadeiramente reutilizáveis.
+* Validar que `config/` é a única fonte de leitura de `process.env`.
+* Validar que imports usam alias `@/` e não paths relativos longos.
+* Verificar que `app/` não contém lógica de validação ou negócio.
+* Verificar que Client Components têm `'use client'` e justificativa clara.
+* Verificar que Server Components não usam hooks ou APIs de browser.
+* Garantir que nenhum arquivo quebra o padrão kebab-case.
+* Verificar que nomes de componentes são PascalCase.
+* Verificar que nenhum `any` não justificado existe no código.
+
+#### Regras obrigatórias
+
+```txt
+ui/       → componentes genéricos, sem lógica de negócio
+layout/   → estrutura global (Header, Footer, Menu)
+sections/ → seções específicas de páginas
+shared/   → componentes reutilizáveis do projeto
+config/   → única fonte de process.env e configurações estáticas
+lib/      → funções utilitárias puras, sem side effects
+constants/→ dados estáticos do domínio
+types/    → tipos TypeScript compartilhados
+```
+
+#### Checklist de validação
+
+```txt
+[ ] Estrutura de pastas segue seção 7
+[ ] Nenhum componente ui/ importa siteConfig ou constantes do domínio
+[ ] Nenhuma section/ importa outra section/
+[ ] config/ é a única camada que lê process.env
+[ ] Imports usam @/ e não caminhos relativos
+[ ] Nenhum Client Component sem justificativa
+[ ] Nenhum Server Component usando hooks
+[ ] Nomes de arquivos em kebab-case
+[ ] Nomes de componentes em PascalCase
+[ ] Nenhum any sem comentário justificando
+[ ] Nenhuma abstração criada sem uso imediato
+```
+
+---
+
+### Agent 3 — Accessibility Guardian
+
+Responsável por garantir que o site atende ao padrão WCAG 2.1 AA e às regras de acessibilidade e cuidado emocional definidas na seção 18.
+
+#### Objetivos
+
+* Garantir navegação acessível para todos os públicos definidos na seção 18.
+* Validar conformidade com WCAG 2.1 AA.
+* Garantir que nenhuma feature quebre a experiência de usuários com dislexia, TDAH, ansiedade, autismo ou deficiência visual.
+* Validar semântica HTML.
+
+#### Responsabilidades
+
+* Validar presença de skip link funcional.
+* Validar `id="main-content"` e `tabIndex={-1}` no `<main>`.
+* Verificar h1 único por página.
+* Verificar hierarquia de headings (h1 → h2 → h3).
+* Verificar que `<section>` usa `aria-labelledby`.
+* Verificar labels visíveis em todos os campos.
+* Verificar `aria-describedby` nos campos com erro.
+* Verificar `aria-invalid` nos campos inválidos.
+* Verificar `role="alert"` em mensagens de erro.
+* Validar `alt` em imagens.
+* Validar `aria-hidden="true"` em elementos decorativos.
+* Verificar contraste de cores (WCAG AA mínimo).
+* Verificar foco visível em todos os elementos interativos.
+* Verificar `prefers-reduced-motion` implementado.
+* Verificar área mínima de toque (44px × 44px).
+* Verificar que formulários não solicitam dados clínicos sensíveis.
+* Verificar que mensagens de erro são respeitosas e claras.
+* Verificar que CTAs não usam linguagem de pressão ou urgência artificial.
+
+#### Checklist de validação
+
+```txt
+[ ] Skip link presente e funcional
+[ ] main com id="main-content" e tabIndex={-1}
+[ ] H1 único por página
+[ ] Hierarquia de headings correta
+[ ] sections com aria-labelledby
+[ ] Labels visíveis em todos os campos
+[ ] Imagens decorativas com aria-hidden="true"
+[ ] Imagens informativas com alt descritivo
+[ ] Foco visível em todos os interativos
+[ ] prefers-reduced-motion implementado
+[ ] Botões e links com mínimo 44px de área
+[ ] Erros de formulário claros e respeitosos
+[ ] Nenhum CTA com linguagem de urgência ou pressão
+[ ] Nenhum dado clínico solicitado no formulário
+[ ] Contraste WCAG AA confirmado
+```
+
+---
+
+### Agent 4 — Security Guardian
+
+Responsável por garantir que nenhuma decisão de segurança definida na seção 17 foi violada em nenhum ponto do código.
+
+#### Objetivos
+
+* Impedir exposição de secrets ou dados sensíveis.
+* Garantir que validações server-side estejam presentes.
+* Verificar que rate limiting e honeypot estão implementados.
+* Garantir conformidade com LGPD no escopo do projeto.
+
+#### Responsabilidades
+
+* Verificar que `RESEND_API_KEY` não aparece em nenhum arquivo com prefixo `NEXT_PUBLIC_`.
+* Verificar que `process.env` não é acessado fora de `config/env.ts`.
+* Verificar que `env.ts` é importado no `layout.tsx`.
+* Verificar que a API Route valida com Zod no server.
+* Verificar que honeypot está implementado e verificado antes do envio.
+* Verificar que rate limiting está implementado em `/api/contact`.
+* Verificar que respostas de erro não expõem detalhes técnicos.
+* Verificar que logger não registra secrets, tokens ou dados clínicos.
+* Verificar que formulário não solicita dados clínicos, diagnóstico ou histórico.
+* Verificar que `.env.local` está no `.gitignore`.
+* Verificar que `.env.example` existe e está atualizado.
+
+#### Checklist de validação
+
+```txt
+[ ] Nenhuma API key com prefixo NEXT_PUBLIC_
+[ ] process.env acessado apenas em config/env.ts
+[ ] env.ts importado no layout.tsx
+[ ] Validação Zod no server (API Route)
+[ ] Honeypot verificado antes do envio de email
+[ ] Rate limiting ativo em /api/contact
+[ ] Respostas de erro sem stack trace ou detalhes internos
+[ ] Logger sem secrets ou dados clínicos
+[ ] Formulário sem campos de dados clínicos sensíveis
+[ ] .env.local no .gitignore
+[ ] .env.example atualizado
+```
+
+---
+
+### Agent 5 — Design System Guardian
+
+Responsável por garantir que a identidade visual da marca está sendo aplicada corretamente e de forma consistente em todos os componentes e páginas.
+
+#### Objetivos
+
+* Garantir que a paleta de cores da marca é respeitada.
+* Garantir que tokens do design system são usados, não valores hardcoded.
+* Garantir que tipografia segue as regras da seção 12.
+* Garantir que o tom visual e emocional está alinhado à proposta da marca.
+
+#### Responsabilidades
+
+* Verificar que cores de marca são usadas via tokens (`brand-forest`, `brand-sand`, etc.).
+* Identificar valores hexadecimais hardcoded fora de `globals.css` e `components/ui/`.
+* Verificar que Playfair Display é usada apenas em títulos curtos.
+* Verificar que Inter é usada em textos longos, botões e campos.
+* Verificar que fundos alternam corretamente entre seções.
+* Verificar que cards seguem o padrão visual da seção 12.7.
+* Verificar que botões primários e secundários seguem a seção 12.7.
+* Verificar que elementos decorativos têm `aria-hidden="true"`.
+* Verificar que nenhuma seção usa linguagem ou visual comercial agressivo.
+* Verificar que o tom das mensagens segue a seção 12.9 e 23.
+
+#### Tokens de referência
+
+```txt
+Fundo principal:    bg-brand-ivory      (#FAF7F2)
+Fundo suave:        bg-brand-sand       (#F2E8DA)
+Primário escuro:    bg-brand-forest     (#2F4A3F)
+Texto apoio:        text-brand-sage     (#6D846F)
+Detalhe:            text-brand-leaf     (#A7B89A)
+Fonte título:       font-serif          (Playfair Display)
+Fonte corpo:        font-sans           (Inter)
+```
+
+#### Checklist de validação
+
+```txt
+[ ] Cores de marca usadas via tokens Tailwind
+[ ] Nenhum hex hardcoded fora de globals.css e ui/
+[ ] Playfair Display apenas em títulos curtos
+[ ] Inter em textos longos, botões e campos
+[ ] Fundos alternam conforme padrão de seções
+[ ] Cards seguem estilo da seção 12.7
+[ ] Botões primários e secundários seguem seção 12.7
+[ ] Elementos decorativos com aria-hidden="true"
+[ ] Nenhum CTA com linguagem comercial agressiva
+[ ] Tom das mensagens alinhado com seção 12.9 e 23
+[ ] Layout limpo, respirável e sem poluição visual
+```
+
+---
+
+### Agent 6 — Performance Guardian
+
+Responsável por garantir que o site é rápido, leve e eficiente, seguindo as boas práticas de performance do Next.js definidas na seção 20.
+
+#### Objetivos
+
+* Garantir que Server Components são usados por padrão.
+* Garantir que imagens são otimizadas com `next/image`.
+* Garantir que o bundle client-side é mínimo.
+* Evitar dependências desnecessárias.
+* Garantir que fontes são carregadas com `next/font`.
+
+#### Responsabilidades
+
+* Verificar que Server Components são padrão.
+* Verificar que Client Components existem apenas onde há estado, evento ou API de browser.
+* Verificar que todas as imagens usam `next/image`.
+* Verificar que imagens above-the-fold têm `priority`.
+* Verificar que fontes usam `next/font/google`.
+* Verificar que não há dependências instaladas sem uso.
+* Verificar que não há `console.log` em produção.
+* Verificar que `npm run build` passa sem erros e sem warnings críticos.
+* Verificar que o bundle não cresce desnecessariamente por imports excessivos.
+
+#### Checklist de validação
+
+```txt
+[ ] Server Components usados por padrão
+[ ] Client Components apenas onde necessário e justificado
+[ ] Todas as imagens com next/image
+[ ] Imagens above-the-fold com priority
+[ ] Fontes com next/font/google
+[ ] Nenhuma dependência instalada sem uso real
+[ ] Nenhum console.log em código de produção
+[ ] npm run build sem erros
+[ ] npm run typecheck sem erros
+[ ] npm run lint sem erros
+```
+
+---
+
+### Quality Gate — Critério de conclusão de task
+
+Uma task só pode ser considerada concluída quando todos os agents relevantes validarem seus checklists sem itens pendentes.
+
+#### Agents obrigatórios por tipo de entrega
+
+```txt
+Componente novo:
+  [ ] Agent 2 — Architecture Guardian
+  [ ] Agent 3 — Accessibility Guardian
+  [ ] Agent 5 — Design System Guardian
+
+Página nova:
+  [ ] Agent 2 — Architecture Guardian
+  [ ] Agent 3 — Accessibility Guardian
+  [ ] Agent 5 — Design System Guardian
+  [ ] Agent 6 — Performance Guardian
+
+API Route:
+  [ ] Agent 2 — Architecture Guardian
+  [ ] Agent 4 — Security Guardian
+
+Refatoração:
+  [ ] Agent 2 — Architecture Guardian
+  [ ] Agent 6 — Performance Guardian
+
+PR / entrega final:
+  [ ] Agent 1 — Playwright Test Guardian
+  [ ] Agent 2 — Architecture Guardian
+  [ ] Agent 3 — Accessibility Guardian
+  [ ] Agent 4 — Security Guardian
+  [ ] Agent 5 — Design System Guardian
+  [ ] Agent 6 — Performance Guardian
+```
+
+#### Bloqueios de entrega
+
+Qualquer item **não** verificado em um Agent obrigatório é um **bloqueio de entrega**.
+
+Não existe "entregar e corrigir depois" para itens de segurança (Agent 4) e acessibilidade (Agent 3).
+
 ---
 
 ## 30. Critérios de aceite técnico
@@ -2785,12 +3150,13 @@ Antes de publicar, preencher:
 
 ## 33. Versão do documento
 
-| Versão | Data       | Descrição                                                                                  |
-| ------ | ---------- | ------------------------------------------------------------------------------------------ |
-| 1.0    | 05/05/2026 | Criação inicial do SDD com base no formulário.                                             |
-| 1.1    | 05/05/2026 | Inclusão de stack técnica, acessibilidade e backlog.                                       |
-| 2.0    | 05/05/2026 | Reestruturação técnica para orientar desenvolvimento com IA.                               |
-| 2.1    | 05/05/2026 | Correção de numeração, eliminação de duplicações, implementação detalhada de API Route.   |
+| Versão | Data       | Descrição                                                                                                          |
+| ------ | ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| 1.0    | 05/05/2026 | Criação inicial do SDD com base no formulário.                                                                     |
+| 1.1    | 05/05/2026 | Inclusão de stack técnica, acessibilidade e backlog.                                                               |
+| 2.0    | 05/05/2026 | Reestruturação técnica para orientar desenvolvimento com IA.                                                       |
+| 2.1    | 05/05/2026 | Correção de numeração, eliminação de duplicações, implementação detalhada de API Route.                           |
+| 3.0    | 06/05/2026 | AI Governance System: 6 agents de validação, Quality Gate por tipo de entrega, alinhamento com código real (env.ts, siteConfig, remoção de analytics.ts). |
 
 ---
 
