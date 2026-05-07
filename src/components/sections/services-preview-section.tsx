@@ -8,7 +8,7 @@ export function ServicesPreviewSection() {
   return (
     <section
       aria-labelledby="services-heading"
-      className="bg-brand-ivory py-20 md:py-28"
+      className="bg-brand-ivory py-14 md:py-20"
     >
       <PageContainer>
         <div className="space-y-12">
@@ -32,11 +32,12 @@ export function ServicesPreviewSection() {
             role="list"
           >
             {services.map((service) => (
-              <li key={service.id}>
+              <li key={service.id} className="h-full">
                 <ServiceCard
                   title={service.title}
                   description={service.description}
                   icon={service.icon}
+                  iconBgClass={service.iconBgClass}
                 />
               </li>
             ))}

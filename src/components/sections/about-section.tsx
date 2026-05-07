@@ -1,3 +1,4 @@
+import { UserRound } from 'lucide-react';
 import { PageContainer } from '@/components/shared/page-container';
 import { SectionHeading } from '@/components/shared/section-heading';
 import { siteConfig } from '@/config/site';
@@ -6,10 +7,15 @@ export function AboutSection() {
   return (
     <section
       aria-labelledby="about-heading"
-      className="bg-white py-20 md:py-28"
+      className="relative bg-white py-14 md:py-20"
     >
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
+        style={{ backgroundImage: "url('/background/background.png')" }}
+        aria-hidden="true"
+      />
       <PageContainer>
-        <div className="grid gap-12 md:grid-cols-2 md:items-center">
+        <div className="relative z-10 grid gap-12 md:grid-cols-2 md:items-center">
           <div className="space-y-6">
             <SectionHeading
               id="about-heading"
@@ -23,10 +29,11 @@ export function AboutSection() {
           </div>
 
           <div
-            className="flex aspect-square w-full max-w-sm items-center justify-center rounded-2xl bg-brand-sand text-brand-sage md:mx-auto"
+            className="relative flex aspect-square w-full max-w-sm items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-brand-sand via-brand-ivory to-brand-sand/60 shadow-[0_4px_32px_rgba(47,74,63,0.08)] md:mx-auto"
             aria-hidden="true"
           >
-            <span className="text-sm text-brand-sage">Foto em breve</span>
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url('/background/background.png')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            <UserRound className="relative z-10 h-28 w-28 text-brand-sage/40" strokeWidth={0.75} />
           </div>
         </div>
       </PageContainer>

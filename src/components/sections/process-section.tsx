@@ -26,7 +26,7 @@ export function ProcessSection() {
   return (
     <section
       aria-labelledby="process-heading"
-      className="bg-white py-20 md:py-28"
+      className="bg-white py-14 md:py-20"
     >
       <PageContainer>
         <div className="space-y-12">
@@ -37,7 +37,7 @@ export function ProcessSection() {
             description="A psicoterapia é um espaço construído juntos, no seu ritmo, respeitando sua história e suas necessidades."
           />
 
-          <ol className="grid gap-8 md:grid-cols-3" role="list">
+          <ol className="grid gap-8 md:grid-cols-3">
             {steps.map((step) => (
               <li key={step.number} className="space-y-3">
                 <span

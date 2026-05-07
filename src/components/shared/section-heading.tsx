@@ -6,6 +6,7 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   align?: 'left' | 'center';
+  level?: 1 | 2 | 3;
 }
 
 export function SectionHeading({
@@ -14,18 +15,25 @@ export function SectionHeading({
   title,
   description,
   align = 'left',
+  level = 2,
 }: SectionHeadingProps) {
+  const headingClass = 'text-3xl font-bold tracking-tight text-foreground md:text-4xl';
+
+  const heading =
+    level === 1 ? (
+      <h1 id={id} className={headingClass}>{title}</h1>
+    ) : level === 3 ? (
+      <h3 id={id} className={headingClass}>{title}</h3>
+    ) : (
+      <h2 id={id} className={headingClass}>{title}</h2>
+    );
+
   return (
     <div className={cn('space-y-4', align === 'center' && 'text-center')}>
       {eyebrow && (
         <p className="text-sm font-medium uppercase tracking-widest text-brand-sage">{eyebrow}</p>
       )}
-      <h2
-        id={id}
-        className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl"
-      >
-        {title}
-      </h2>
+      {heading}
       {description && (
         <p className="text-base leading-7 text-muted-foreground md:text-lg">{description}</p>
       )}

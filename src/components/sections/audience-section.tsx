@@ -7,7 +7,7 @@ export function AudienceSection() {
   return (
     <section
       aria-labelledby="audience-heading"
-      className="bg-brand-sand/40 py-20 md:py-28"
+      className="bg-brand-sand/40 py-14 md:py-20"
     >
       <PageContainer>
         <div className="mx-auto max-w-2xl space-y-10">

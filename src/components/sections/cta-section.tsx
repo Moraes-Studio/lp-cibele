@@ -5,10 +5,15 @@ export function CtaSection() {
   return (
     <section
       aria-labelledby="cta-heading"
-      className="bg-brand-forest py-20 md:py-28"
+      className="relative bg-brand-forest py-14 md:py-20"
     >
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 invert"
+        style={{ backgroundImage: "url('/background/background-svg.svg')" }}
+        aria-hidden="true"
+      />
       <PageContainer>
-        <div className="mx-auto max-w-xl space-y-8 text-center">
+        <div className="relative z-10 mx-auto max-w-2xl space-y-8 text-center">
           <h2
             id="cta-heading"
             className="font-serif text-3xl font-semibold leading-tight text-brand-ivory md:text-4xl"

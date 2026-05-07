@@ -1,12 +1,14 @@
 import { User, Compass, Users, Heart, type LucideIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
-type ServiceIconName = 'user' | 'compass' | 'users' | 'heart';
+export type ServiceIconName = 'user' | 'compass' | 'users' | 'heart';
 
 interface ServiceCardProps {
   title: string;
   description: string;
   icon: ServiceIconName;
+  iconBgClass?: string;
 }
 
 const iconByName: Record<ServiceIconName, LucideIcon> = {
@@ -16,22 +18,25 @@ const iconByName: Record<ServiceIconName, LucideIcon> = {
   heart: Heart,
 };
 
-export function ServiceCard({ title, description, icon }: ServiceCardProps) {
+export function ServiceCard({ title, description, icon, iconBgClass }: ServiceCardProps) {
   const Icon = iconByName[icon];
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="group flex h-full flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(47,74,63,0.10)]">
+      <CardHeader className="flex flex-col gap-4">
         <div
-          className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-sand text-brand-forest"
+          className={cn(
+            'flex h-14 w-14 items-center justify-center rounded-full text-brand-forest transition-opacity group-hover:opacity-90',
+            iconBgClass ?? 'bg-brand-sand'
+          )}
           aria-hidden="true"
         >
-          <Icon className="h-5 w-5" />
+          <Icon className="h-7 w-7" />
         </div>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-base leading-snug">{title}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <CardDescription>{description}</CardDescription>
+      <CardContent className="flex-1 pt-0">
+        <CardDescription className="text-sm leading-relaxed">{description}</CardDescription>
       </CardContent>
     </Card>
   );
