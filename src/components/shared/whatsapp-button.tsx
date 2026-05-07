@@ -36,7 +36,7 @@ export function WhatsAppButton({
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Abrir WhatsApp"
+        aria-label="Agendar pelo WhatsApp"
         className={cn(
           'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#3a7d5d] text-white shadow-[0_4px_18px_rgba(47,74,63,0.22)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(47,74,63,0.30)] focus:outline-none focus:ring-2 focus:ring-[#3a7d5d] focus:ring-offset-2',
           className
