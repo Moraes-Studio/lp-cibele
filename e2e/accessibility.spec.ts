@@ -63,7 +63,7 @@ for (const { name, path } of pages) {
       await expect(page.locator('header')).toBeAttached();
       await expect(page.locator('main')).toBeAttached();
       await expect(page.locator('footer')).toBeAttached();
-      await expect(page.locator('nav')).toBeAttached();
+      await expect(page.locator('nav').first()).toBeAttached();
     });
 
     test('heading hierarchy sem saltos', async ({ page }) => {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa';
-import { cn } from '@/lib/utils';
+import { cn, focusRingBase } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 
 type WhatsAppButtonVariant = 'floating' | 'inline';
@@ -38,7 +38,8 @@ export function WhatsAppButton({
         rel="noopener noreferrer"
         aria-label="Agendar pelo WhatsApp"
         className={cn(
-          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#3a7d5d] text-white shadow-[0_4px_18px_rgba(47,74,63,0.22)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(47,74,63,0.30)] focus:outline-none focus:ring-2 focus:ring-[#3a7d5d] focus:ring-offset-2',
+          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#3a7d5d] text-white shadow-[0_4px_18px_rgba(47,74,63,0.22)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(47,74,63,0.30)] focus:ring-[#3a7d5d]',
+          focusRingBase,
           className
         )}
       >
@@ -53,7 +54,8 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-sage focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+        'inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-sage',
+        focusRingBase,
         className
       )}
     >

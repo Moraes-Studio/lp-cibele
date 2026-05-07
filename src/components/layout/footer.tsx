@@ -1,9 +1,36 @@
 import Link from 'next/link';
+import type { IconType } from 'react-icons';
 import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa';
 import { PageContainer } from '@/components/shared/page-container';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { siteConfig } from '@/config/site';
 import { navigation } from '@/config/navigation';
+
+const footerSocialLinkClasses =
+  'flex items-center gap-1.5 text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest';
+
+function FooterSocialLink({
+  href,
+  label,
+  icon: Icon,
+}: {
+  href: string;
+  label: string;
+  icon: IconType;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className={footerSocialLinkClasses}
+    >
+      <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+      <span>{label}</span>
+    </a>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -38,40 +65,13 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             {whatsappUrl && (
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="flex items-center gap-1.5 text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest"
-              >
-                <FaWhatsapp className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>WhatsApp</span>
-              </a>
+              <FooterSocialLink href={whatsappUrl} label="WhatsApp" icon={FaWhatsapp} />
             )}
             {siteConfig.instagram && (
-              <a
-                href={siteConfig.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="flex items-center gap-1.5 text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest"
-              >
-                <FaInstagram className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Instagram</span>
-              </a>
+              <FooterSocialLink href={siteConfig.instagram} label="Instagram" icon={FaInstagram} />
             )}
             {siteConfig.facebook && (
-              <a
-                href={siteConfig.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="flex items-center gap-1.5 text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest"
-              >
-                <FaFacebook className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Facebook</span>
-              </a>
+              <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
             )}
           </div>
         </div>

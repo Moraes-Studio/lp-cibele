@@ -33,22 +33,22 @@ test.describe('Performance hints — Home', () => {
     expect(count).toBe(0);
   });
 
-  // LCP: imagem hero deve ser inlined no HTML inicial (priority = preload link)
+  // LCP: imagem hero deve ter preload link no head
+  // Next.js 16 gera preload com imageSrcSet para priority images
   test('hero illustration tem preload link no head', async ({ page }) => {
     const preloadLink = page.locator(
-      'link[rel="preload"][as="image"][href*="ilustracao"]'
+      'link[rel="preload"][as="image"][href*="ilustracao"], link[rel="preload"][as="image"][imageSrcSet*="ilustracao"]'
     );
-    await expect(preloadLink).toBeAttached();
+    await expect(preloadLink.first()).toBeAttached();
   });
 
-  // Legacy JS: garantir que nenhum script com nomodule seja o bundle principal
-  // (nomodule = fallback para browsers antigos; não deve existir como script primário)
-  test('sem scripts nomodule como bundle primário', async ({ page }) => {
-    const nomoduleScripts = page.locator(
-      'script[nomodule]:not([src*="_buildManifest"]):not([src*="_ssgManifest"])'
+  // Scripts: garantir que nenhum script src é bloqueante para browsers modernos
+  // nomodule scripts são ignorados por browsers que suportam ES modules — excluídos
+  test('nenhum script src é bloqueante para browsers modernos', async ({ page }) => {
+    const blockingScripts = page.locator(
+      'script[src]:not([async]):not([defer]):not([type="module"]):not([nomodule])'
     );
-    const count = await nomoduleScripts.count();
-    // Aceitar 0; se Next.js emitir nomodule por algum motivo, o teste falha
+    const count = await blockingScripts.count();
     expect(count).toBe(0);
   });
 

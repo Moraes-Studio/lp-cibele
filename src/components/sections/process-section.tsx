@@ -41,7 +41,7 @@ export function ProcessSection() {
             {steps.map((step) => (
               <li key={step.number} className="space-y-3">
                 <span
-                  className="font-serif text-4xl font-semibold text-brand-sand"
+                  className="font-serif text-4xl font-semibold text-brand-sage"
                   aria-hidden="true"
                 >
                   {step.number}
