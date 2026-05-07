@@ -22,7 +22,7 @@ export function ServiceCard({ title, description, icon, iconBgClass }: ServiceCa
   const Icon = iconByName[icon];
 
   return (
-    <Card className="group flex h-full flex-col transition-all duration-300 motion-safe:hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(47,74,63,0.10)]">
+    <Card className="group flex h-full flex-col border-border/60 shadow-[var(--shadow-sm)] transition-all duration-300 motion-safe:hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(47,74,63,0.12)] hover:border-brand-leaf/50">
       <CardHeader className="flex flex-col gap-4">
         <div
           className={cn(

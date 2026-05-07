@@ -35,6 +35,7 @@ export function ProcessSection() {
             eyebrow="Como funciona"
             title="Um processo de escuta e reflexão"
             description="A psicoterapia é um espaço construído juntos, no seu ritmo, respeitando sua história e suas necessidades."
+            accent
           />
 
           <ol className="grid gap-8 md:grid-cols-3">

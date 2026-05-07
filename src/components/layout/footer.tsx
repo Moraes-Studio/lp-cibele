@@ -8,7 +8,7 @@ import { navigation } from '@/config/navigation';
 import { cn } from '@/lib/utils';
 
 const footerInteractiveClasses =
-  'text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest';
+  'text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-leaf focus-visible:ring-offset-2 focus-visible:ring-offset-brand-forest rounded-sm';
 
 function FooterSocialLink({
   href,

@@ -1,7 +1,7 @@
 'use client';
 
 import { CheckCircle2 } from 'lucide-react';
-import { FaWhatsapp, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 import {
   Form,
@@ -25,23 +25,35 @@ export function ContactSection() {
   const { form, onSubmit, submitState, blockedMessage, isDisabled } = useContactForm();
 
   return (
-    <section id="contato" aria-labelledby="contato-heading" className="py-20">
+    <section
+      id="contato"
+      aria-labelledby="contato-heading"
+      className="relative py-20 overflow-hidden"
+    >
+      {/* Organic background blobs — decorative only */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 -right-20 h-[28rem] w-[28rem] rounded-full bg-brand-leaf/[0.08] blur-3xl" />
+        <div className="absolute bottom-0 -left-24 h-72 w-72 rounded-full bg-brand-sand/80 blur-2xl" />
+      </div>
+
       <PageContainer>
         <SectionHeading
           id="contato-heading"
+          eyebrow="Fale comigo"
           title="Entre em contato"
           description="Preencha o formulário e sua mensagem chegará diretamente no meu WhatsApp. Respondo assim que possível."
           align="center"
+          accent
         />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Form */}
-          <div className="rounded-2xl bg-card p-8 shadow-sm">
+        <div className="relative mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Form card */}
+          <div className="rounded-2xl bg-card p-8 shadow-[var(--shadow-md)] ring-1 ring-border/60">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 noValidate
-                className="space-y-5"
+                className="space-y-6"
               >
                 {/* Honeypot — hidden from real users via CSS, filled by bots */}
                 <input
@@ -59,12 +71,13 @@ export function ContactSection() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Nome <span aria-hidden="true" className="text-destructive">*</span>
+                        Nome completo{' '}
+                        <span aria-hidden="true" className="text-destructive">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="Seu nome completo"
+                          placeholder="Seu nome e sobrenome"
                           autoComplete="name"
                           disabled={isDisabled}
                           maxLength={100}
@@ -81,7 +94,8 @@ export function ContactSection() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        E-mail <span aria-hidden="true" className="text-destructive">*</span>
+                        E-mail{' '}
+                        <span aria-hidden="true" className="text-destructive">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -110,10 +124,11 @@ export function ContactSection() {
                     return (
                       <FormItem>
                         <FormLabel>
-                          WhatsApp / Telefone <span aria-hidden="true" className="text-destructive">*</span>
+                          WhatsApp / Telefone{' '}
+                          <span aria-hidden="true" className="text-destructive">*</span>
                         </FormLabel>
-                        <FormControl>
-                          <div className="relative">
+                        <div className="relative">
+                          <FormControl>
                             <Input
                               {...field}
                               type="tel"
@@ -123,14 +138,14 @@ export function ContactSection() {
                               maxLength={20}
                               className={cn(isPhoneValid && 'pr-10')}
                             />
-                            {isPhoneValid && (
-                              <CheckCircle2
-                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--whatsapp-green)]"
-                                aria-hidden="true"
-                              />
-                            )}
-                          </div>
-                        </FormControl>
+                          </FormControl>
+                          {isPhoneValid && (
+                            <CheckCircle2
+                              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--whatsapp-green)]"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </div>
                         <FormMessage />
                       </FormItem>
                     );
@@ -143,7 +158,8 @@ export function ContactSection() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Mensagem <span aria-hidden="true" className="text-destructive">*</span>
+                        Mensagem{' '}
+                        <span aria-hidden="true" className="text-destructive">*</span>
                       </FormLabel>
                       <FormControl>
                         <Textarea
@@ -184,7 +200,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   disabled={isDisabled}
-                  className="w-full gap-2"
+                  className="btn-whatsapp w-full gap-2 text-brand-ivory focus-visible:ring-offset-card"
                 >
                   <FaWhatsapp className="h-4 w-4 shrink-0" aria-hidden="true" />
                   {form.formState.isSubmitting
@@ -203,18 +219,18 @@ export function ContactSection() {
             </Form>
           </div>
 
-          {/* Social follow */}
+          {/* Social follow + trust */}
           <div className="flex flex-col justify-center gap-8">
             <div>
               <h3 className="mb-3 text-lg font-semibold text-foreground">
-                Quer ver mais do meu trabalho?
+                Quer me conhecer melhor antes de decidir?
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Me acompanhe nas minhas redes sociais e fique por dentro de conteúdos sobre saúde emocional e psicologia.
+                Dar o primeiro passo pode parecer difícil. Por isso, você pode me acompanhar nas redes sociais e ver de perto como é o meu trabalho antes de qualquer compromisso.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap gap-3">
               {siteConfig.instagram && (
                 <SocialLink
                   href={siteConfig.instagram}
@@ -238,12 +254,25 @@ export function ContactSection() {
                   LinkedIn
                 </SocialLink>
               )}
+
+              {siteConfig.email && (
+                <SocialLink
+                  href={`mailto:${siteConfig.email}`}
+                  label="Enviar e-mail"
+                  icon={FaEnvelope}
+                  iconClassName="text-muted-foreground"
+                >
+                  {siteConfig.email}
+                </SocialLink>
+              )}
             </div>
 
-            <div className="rounded-xl bg-brand-sand/40 p-5 text-sm leading-relaxed text-muted-foreground">
+            <div className="rounded-xl bg-brand-sand/40 p-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="font-medium text-foreground">
+                A primeira conversa é para você me conhecer melhor.
+              </p>
               <p>
-                O primeiro contato é apenas para entender se o atendimento faz sentido para você.
-                Sem compromisso, sem julgamentos.
+                Não há julgamentos, nem compromissos. É um espaço seguro para você entender se o atendimento faz sentido para o que está vivendo agora.
               </p>
             </div>
           </div>

@@ -5,6 +5,7 @@
   /* brand palette — DS aprovado */
   --brand-forest: #2f4a3f;
   --brand-sage: #6d846f;
+  --brand-sage-strong: #4a6354; /* WCAG AA ≥5.4:1 on white/ivory — use for small text */
   --brand-leaf: #a7b89a;
   --brand-sand: #f2e8da;
   --brand-ivory: #faf7f2;
@@ -60,6 +61,7 @@
   /* expose brand colors as Tailwind utilities */
   --color-brand-forest: var(--brand-forest);
   --color-brand-sage: var(--brand-sage);
+  --color-brand-sage-strong: var(--brand-sage-strong);
   --color-brand-leaf: var(--brand-leaf);
   --color-brand-sand: var(--brand-sand);
   --color-brand-ivory: var(--brand-ivory);
@@ -115,6 +117,12 @@ body {
   line-height: 1.8;
 }
 
+/* ─── Text selection — brand colors ─── */
+::selection {
+  background-color: var(--brand-leaf);
+  color: var(--brand-forest);
+}
+
 /* ─── Secondary hero button — hover premium ─── */
 .btn-hero-secondary {
   transition:
@@ -143,6 +151,31 @@ body {
     transition: none;
   }
   .btn-hero-secondary:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ─── WhatsApp CTA button — gradient + lift animation ─── */
+.btn-whatsapp {
+  background: linear-gradient(135deg, var(--brand-forest) 0%, var(--brand-sage) 100%);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    opacity 150ms ease;
+}
+.btn-whatsapp:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(47, 74, 63, 0.3);
+}
+.btn-whatsapp:active:not(:disabled) {
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-whatsapp {
+    transition: opacity 150ms ease;
+  }
+  .btn-whatsapp:hover:not(:disabled) {
     transform: none;
     box-shadow: none;
   }

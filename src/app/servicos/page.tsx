@@ -32,6 +32,7 @@ export default function ServicosPage() {
               description="Um espaço de escuta e cuidado pensado para adultos que buscam compreender melhor a si mesmos, suas relações e seus caminhos."
               align="center"
               level={1}
+              accent
             />
             <WhatsAppButton label="Agendar conversa inicial" />
           </div>
@@ -49,6 +50,7 @@ export default function ServicosPage() {
               eyebrow="O que atendo"
               title="Áreas de foco"
               description="Cada processo terapêutico é único. As áreas abaixo representam os principais temas trabalhados no atendimento."
+              accent
             />
 
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" role="list">
