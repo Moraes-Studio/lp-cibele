@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { ContactSection } from '@/components/sections/contact-section';
-import { WhatsAppButton } from '@/components/shared/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'Contato',
@@ -12,10 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContatoPage() {
-  return (
-    <>
-      <ContactSection />
-      <WhatsAppButton variant="floating" />
-    </>
-  );
+  return <ContactSection />;
 }

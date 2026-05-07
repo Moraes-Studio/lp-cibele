@@ -1,8 +1,7 @@
 'use client';
 
 import { CheckCircle2 } from 'lucide-react';
-import { FaWhatsapp, FaLinkedin } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import { FaWhatsapp, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 import {
   Form,
@@ -204,26 +203,27 @@ export function ContactSection() {
             </Form>
           </div>
 
-          {/* Contact info */}
+          {/* Social follow */}
           <div className="flex flex-col justify-center gap-8">
             <div>
               <h3 className="mb-3 text-lg font-semibold text-foreground">
-                Outros canais de contato
+                Quer ver mais do meu trabalho?
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Se preferir, pode me contatar pelo e-mail ou me encontrar no LinkedIn.
+                Me acompanhe nas minhas redes sociais e fique por dentro de conteúdos sobre saúde emocional e psicologia.
               </p>
             </div>
 
             <div className="flex flex-col gap-3">
-              {siteConfig.email && (
+              {siteConfig.instagram && (
                 <SocialLink
-                  href={`mailto:${siteConfig.email}`}
-                  label={`Enviar e-mail para ${siteConfig.email}`}
-                  icon={MdEmail}
+                  href={siteConfig.instagram}
+                  label="Seguir no Instagram"
+                  icon={FaInstagram}
                   iconClassName="text-brand-forest"
+                  external
                 >
-                  {siteConfig.email}
+                  Instagram
                 </SocialLink>
               )}
 
