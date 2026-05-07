@@ -34,20 +34,15 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[88vh] items-center overflow-hidden bg-brand-ivory py-16 md:py-20"
     >
-      {/* background botanical — bordas */}
+      {/* background botanical — decorativo, CSS para não ser candidato a LCP */}
       <div
-        className="absolute inset-0 overflow-hidden opacity-[0.15] blur-sm"
-        style={{ maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, transparent 15%, black 68%)" }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] blur-sm"
+        style={{
+          backgroundImage: "url('/background/background2.jpg')",
+          maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, transparent 15%, black 68%)",
+        }}
         aria-hidden="true"
-      >
-        <Image
-          src="/background/background2.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </div>
+      />
 
       {/* glow principal — atrás da ilustração, lado direito */}
       <div
@@ -127,6 +122,7 @@ export function HeroSection() {
               width={560}
               height={560}
               priority
+              sizes="(max-width: 768px) 352px, (max-width: 1024px) 480px, 560px"
               className="relative z-10 w-full max-w-[22rem] md:max-w-[30rem] lg:max-w-[36rem] [filter:contrast(1.15)_brightness(0.93)_sepia(0.12)_saturate(1.05)]"
             />
           </div>
