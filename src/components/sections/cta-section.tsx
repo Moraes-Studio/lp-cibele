@@ -20,7 +20,7 @@ export function CtaSection() {
           >
             Pronto para dar o primeiro passo?
           </h2>
-          <p className="text-base leading-7 text-brand-leaf">
+          <p className="text-base leading-7 text-brand-sand">
             Entre em contato pelo WhatsApp para agendarmos uma conversa inicial. Sem compromisso,
             com toda a atenção que você merece.
           </p>

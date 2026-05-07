@@ -38,7 +38,7 @@ export function HeroSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] blur-sm"
         style={{
-          backgroundImage: "url('/background/background2.jpg')",
+          backgroundImage: "url('/background/background2.webp')",
           maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, transparent 15%, black 68%)",
         }}
         aria-hidden="true"
@@ -117,7 +117,7 @@ export function HeroSection() {
             <Sparkle className="absolute bottom-[8%]  left-[18%]" size={7}  color="#DDA89B" opacity={0.35} />
 
             <Image
-              src="/ilustracao/ilustracaohero.png"
+              src="/ilustracao/ilustracaohero.webp"
               alt="Ilustração de mulher em paz, com plantas ao redor"
               width={560}
               height={560}
