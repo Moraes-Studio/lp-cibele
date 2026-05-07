@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { navigation } from '@/config/navigation';
-import { cn, navActiveClasses } from '@/lib/utils';
+import { cn, focusRingBase, navActiveClasses } from '@/lib/utils';
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -36,6 +36,7 @@ export function MobileMenu() {
                   onClick={() => setOpen(false)}
                   className={cn(
                     'block rounded-md px-4 py-3 text-base font-medium transition-colors',
+                    focusRingBase,
                     navActiveClasses(pathname === item.href)
                   )}
                 >

@@ -19,6 +19,10 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
 
+  /* third-party brand colors */
+  --whatsapp-green: #3a7d5d;
+  --linkedin-blue: #0a66c2;
+
   /* shadcn/ui semantic tokens mapped to brand */
   --background: var(--brand-ivory);
   --foreground: var(--brand-forest);
@@ -90,6 +94,10 @@
   /* fonts */
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+
+  /* third-party brand colors */
+  --color-whatsapp: var(--whatsapp-green);
+  --color-linkedin: var(--linkedin-blue);
 
   /* border radius */
   --radius-sm: calc(var(--radius) - 4px);

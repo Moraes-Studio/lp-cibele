@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
-const PHONE_REGEX = /^[\d\s\(\)\-\+]{8,20}$/;
+const PHONE_ALLOWED_CHARS_REGEX = /^[+\d\s()\-]+$/;
+const MINIMUM_PHONE_DIGITS = 8;
 
-// Rejects strings that are pure repetition (aaaaaaa, 1111111)
+function hasMinimumDigits(value: string): boolean {
+  return (value.match(/\d/g) ?? []).length >= MINIMUM_PHONE_DIGITS;
+}
+
 function isNotRepetitive(value: string): boolean {
   return !/^(.)\1{4,}$/.test(value.replace(/\s/g, ''));
 }
@@ -26,7 +30,8 @@ export const contactFormSchema = z.object({
     .trim()
     .min(8, 'Informe um telefone ou WhatsApp válido.')
     .max(20, 'O telefone deve ter no máximo 20 caracteres.')
-    .regex(PHONE_REGEX, 'Use apenas números, espaços, hífen ou parênteses.'),
+    .regex(PHONE_ALLOWED_CHARS_REGEX, 'Use apenas números, espaços, hífen ou parênteses.')
+    .refine(hasMinimumDigits, 'O telefone deve ter pelo menos 8 dígitos.'),
 
   message: z
     .string()

@@ -3,6 +3,7 @@ import { PageContainer } from '@/components/shared/page-container';
 import { MobileMenu } from '@/components/layout/mobile-menu';
 import { NavLinks } from '@/components/layout/nav-links';
 import { siteConfig } from '@/config/site';
+import { cn, focusRingBase } from '@/lib/utils';
 
 export function Header() {
   return (
@@ -11,7 +12,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="font-serif text-lg font-semibold text-brand-forest focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={cn('font-serif text-lg font-semibold text-brand-forest', focusRingBase)}
             aria-label={`${siteConfig.name} — página inicial`}
           >
             {siteConfig.name}

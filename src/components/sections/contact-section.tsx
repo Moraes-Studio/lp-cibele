@@ -1,8 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import {
@@ -18,101 +15,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/shared/section-heading';
 import { PageContainer } from '@/components/shared/page-container';
+import { SocialLink } from '@/components/shared/social-link';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
-import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { sanitizeAll } from '@/lib/sanitize';
-import {
-  checkContactRateLimit,
-  recordContactSent,
-  formatCooldownMessage,
-} from '@/lib/contact-rate-limit';
+import { useContactForm } from '@/hooks/use-contact-form';
 import { siteConfig } from '@/config/site';
-import { cn, focusRingBase } from '@/lib/utils';
-
-type SubmitState = 'idle' | 'sending' | 'success' | 'error' | 'blocked' | 'threat';
-
-function buildWhatsAppMessage(data: ContactFormData): string {
-  return (
-    `Olá! Gostaria de agendar uma conversa.\n\n` +
-    `*Nome:* ${data.name}\n` +
-    `*E-mail:* ${data.email}\n` +
-    `*Telefone:* ${data.phone}\n\n` +
-    `*Mensagem:*\n${data.message}`
-  );
-}
-
-const socialLinkClass = cn(
-  'inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground',
-  focusRingBase,
-  'rounded'
-);
 
 export function ContactSection() {
-  const [submitState, setSubmitState] = useState<SubmitState>('idle');
-  const [blockedMessage, setBlockedMessage] = useState('');
-
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
-      company: '',
-    },
-  });
-
-  const isDisabled = form.formState.isSubmitting || submitState === 'success';
-
-  async function onSubmit(data: ContactFormData) {
-    // Honeypot — silently do nothing if filled
-    if (data.company) return;
-
-    // Rate limit check
-    const rateLimit = checkContactRateLimit();
-    if (!rateLimit.allowed) {
-      setBlockedMessage(formatCooldownMessage(rateLimit.remainingMs));
-      setSubmitState('blocked');
-      return;
-    }
-
-    setSubmitState('sending');
-
-    // Sanitize all fields before building the WhatsApp URL
-    const sanitized = sanitizeAll({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    });
-
-    if (!sanitized.ok) {
-      setSubmitState('threat');
-      return;
-    }
-
-    const message = buildWhatsAppMessage({
-      ...data,
-      name: sanitized.values.name,
-      email: sanitized.values.email,
-      phone: sanitized.values.phone,
-      message: sanitized.values.message,
-    });
-
-    const url = buildWhatsAppUrl(siteConfig.phone, message);
-
-    if (!url) {
-      setSubmitState('error');
-      return;
-    }
-
-    recordContactSent();
-    setSubmitState('success');
-
-    // Small delay so the user sees the success state before WhatsApp opens
-    await new Promise((r) => setTimeout(r, 600));
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }
+  const { form, onSubmit, submitState, blockedMessage, isDisabled } = useContactForm();
 
   return (
     <section id="contato" aria-labelledby="contato-heading" className="py-20">
@@ -133,21 +42,15 @@ export function ContactSection() {
                 noValidate
                 className="space-y-5"
               >
-                {/* Honeypot — invisible to real users, filled by bots */}
-                <div aria-hidden="true" className="absolute -left-[9999px] -top-[9999px]">
-                  <FormField
-                    control={form.control}
-                    name="company"
-                    render={({ field }) => (
-                      <input
-                        {...field}
-                        type="text"
-                        tabIndex={-1}
-                        autoComplete="off"
-                      />
-                    )}
-                  />
-                </div>
+                {/* Honeypot — hidden from real users via CSS, filled by bots */}
+                <input
+                  type="text"
+                  className="hidden"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  {...form.register('company')}
+                />
 
                 <FormField
                   control={form.control}
@@ -240,9 +143,8 @@ export function ContactSection() {
                   )}
                 />
 
-                {/* Feedback messages */}
                 {submitState === 'success' && (
-                  <p role="status" className="text-sm font-medium text-[#3a7d5d]">
+                  <p role="status" className="text-sm font-medium text-[var(--whatsapp-green)]">
                     Sua mensagem foi preparada. O WhatsApp abrirá em instantes.
                   </p>
                 )}
@@ -297,41 +199,37 @@ export function ContactSection() {
             </div>
 
             <div className="space-y-4">
-              {siteConfig.phone && (
-                <a
-                  href={buildWhatsAppUrl(siteConfig.phone) ?? '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Abrir WhatsApp"
-                  className={socialLinkClass}
-                >
-                  <FaWhatsapp className="h-5 w-5 shrink-0 text-[#3a7d5d]" aria-hidden="true" />
-                  <span>WhatsApp</span>
-                </a>
-              )}
+              <SocialLink
+                href={buildWhatsAppUrl(siteConfig.phone)}
+                label="Abrir WhatsApp"
+                icon={FaWhatsapp}
+                iconClassName="text-[var(--whatsapp-green)]"
+                external
+              >
+                WhatsApp
+              </SocialLink>
 
               {siteConfig.email && (
-                <a
+                <SocialLink
                   href={`mailto:${siteConfig.email}`}
-                  aria-label={`Enviar e-mail para ${siteConfig.email}`}
-                  className={socialLinkClass}
+                  label={`Enviar e-mail para ${siteConfig.email}`}
+                  icon={MdEmail}
+                  iconClassName="text-brand-forest"
                 >
-                  <MdEmail className="h-5 w-5 shrink-0 text-brand-forest" aria-hidden="true" />
-                  <span>{siteConfig.email}</span>
-                </a>
+                  {siteConfig.email}
+                </SocialLink>
               )}
 
               {siteConfig.linkedin && (
-                <a
+                <SocialLink
                   href={siteConfig.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Ver perfil no LinkedIn"
-                  className={socialLinkClass}
+                  label="Ver perfil no LinkedIn"
+                  icon={FaLinkedin}
+                  iconClassName="text-[var(--linkedin-blue)]"
+                  external
                 >
-                  <FaLinkedin className="h-5 w-5 shrink-0 text-[#0a66c2]" aria-hidden="true" />
-                  <span>LinkedIn</span>
-                </a>
+                  LinkedIn
+                </SocialLink>
               )}
             </div>
 

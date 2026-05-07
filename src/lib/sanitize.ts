@@ -1,3 +1,5 @@
+import { logger } from '@/lib/logger';
+
 // Patterns that indicate injection attempts — block before any processing
 const THREAT_PATTERNS: RegExp[] = [
   /<[^>]*>/gi,                          // HTML tags
@@ -72,11 +74,11 @@ export function sanitizeAll(
   return { ok: true, values };
 }
 
-// Safe decode — if decoding fails just return original to avoid crash
 function decodeAttempt(value: string): string {
   try {
     return decodeURIComponent(value);
-  } catch {
+  } catch (error) {
+    logger.warn('sanitize_decode_failed', { preview: value.slice(0, 50), error: String(error) });
     return value;
   }
 }

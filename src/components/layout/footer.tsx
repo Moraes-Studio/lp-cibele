@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import type { IconType } from 'react-icons';
-import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
 import { PageContainer } from '@/components/shared/page-container';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { siteConfig } from '@/config/site';
 import { navigation } from '@/config/navigation';
+import { cn } from '@/lib/utils';
 
-const footerSocialLinkClasses =
-  'flex items-center gap-1.5 text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest';
+const footerInteractiveClasses =
+  'text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest';
 
 function FooterSocialLink({
   href,
@@ -24,7 +25,7 @@ function FooterSocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className={footerSocialLinkClasses}
+      className={cn('flex items-center gap-1.5', footerInteractiveClasses)}
     >
       <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
       <span>{label}</span>
@@ -52,10 +53,7 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {navigation.map((item) => (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-brand-ivory/80 transition-colors hover:text-brand-ivory focus:outline-none focus:ring-2 focus:ring-brand-leaf focus:ring-offset-2 focus:ring-offset-brand-forest"
-                  >
+                  <Link href={item.href} className={footerInteractiveClasses}>
                     {item.label}
                   </Link>
                 </li>
@@ -69,6 +67,9 @@ export function Footer() {
             )}
             {siteConfig.instagram && (
               <FooterSocialLink href={siteConfig.instagram} label="Instagram" icon={FaInstagram} />
+            )}
+            {siteConfig.linkedin && (
+              <FooterSocialLink href={siteConfig.linkedin} label="LinkedIn" icon={FaLinkedin} />
             )}
             {siteConfig.facebook && (
               <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
