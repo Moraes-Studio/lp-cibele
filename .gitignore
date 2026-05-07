@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# unlighthouse cache
+.unlighthouse/
+
+# playwright output
+test-results/
+playwright-report/
