@@ -78,7 +78,7 @@ export function HeroSection() {
         <div className="relative z-10 grid items-center gap-12 md:grid-cols-2">
           {/* coluna texto */}
           <div className="space-y-8">
-            <p className="text-sm font-medium uppercase tracking-widest text-brand-sage">
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
               {siteConfig.role}
             </p>
 

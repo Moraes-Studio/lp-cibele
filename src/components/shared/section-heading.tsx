@@ -31,7 +31,7 @@ export function SectionHeading({
   return (
     <div className={cn('space-y-4', align === 'center' && 'text-center')}>
       {eyebrow && (
-        <p className="text-sm font-medium uppercase tracking-widest text-brand-sage">{eyebrow}</p>
+        <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">{eyebrow}</p>
       )}
       {heading}
       {description && (

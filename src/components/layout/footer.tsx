@@ -15,9 +15,9 @@ export function Footer() {
         <div className="flex flex-col gap-4 py-10 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-serif text-base font-semibold">{siteConfig.name}</p>
-            <p className="text-xs text-brand-leaf">{siteConfig.role}</p>
+            <p className="text-xs text-brand-sand">{siteConfig.role}</p>
             {siteConfig.crp && (
-              <p className="text-xs text-brand-leaf">{siteConfig.crp}</p>
+              <p className="text-xs text-brand-sand">{siteConfig.crp}</p>
             )}
           </div>
 
@@ -76,7 +76,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-brand-sage/30 py-3 text-center text-xs text-brand-leaf">
+        <div className="border-t border-brand-sage/30 py-3 text-center text-xs text-brand-sand">
           <p>&copy; {year} {siteConfig.name}. Todos os direitos reservados.</p>
         </div>
       </PageContainer>

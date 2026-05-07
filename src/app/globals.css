@@ -36,7 +36,7 @@
   --secondary-foreground: var(--brand-forest);
 
   --muted: var(--brand-sand);
-  --muted-foreground: var(--brand-sage);
+  --muted-foreground: #546858;
 
   --accent: var(--brand-sand);
   --accent-foreground: var(--brand-forest);

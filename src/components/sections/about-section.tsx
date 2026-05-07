@@ -29,7 +29,7 @@ export function AboutSection() {
               description="Sou psicóloga clínica com formação voltada ao atendimento de adultos. Acredito que o processo terapêutico é um espaço de escuta, reflexão e transformação — um lugar onde cada pessoa pode se encontrar com mais clareza sobre si mesma e sobre suas relações."
             />
             {siteConfig.crp && (
-              <p className="text-sm font-medium text-brand-sage">{siteConfig.crp}</p>
+              <p className="text-sm font-medium text-muted-foreground">{siteConfig.crp}</p>
             )}
           </div>
 
