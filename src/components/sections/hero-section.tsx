@@ -36,13 +36,18 @@ export function HeroSection() {
     >
       {/* background botanical — bordas */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] blur-sm"
-        style={{
-          backgroundImage: "url('/background/background2.jpg')",
-          maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, transparent 15%, black 68%)",
-        }}
+        className="absolute inset-0 overflow-hidden opacity-[0.15] blur-sm"
+        style={{ maskImage: "radial-gradient(ellipse 75% 85% at 50% 50%, transparent 15%, black 68%)" }}
         aria-hidden="true"
-      />
+      >
+        <Image
+          src="/background/background2.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
 
       {/* glow principal — atrás da ilustração, lado direito */}
       <div
