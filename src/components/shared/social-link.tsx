@@ -27,7 +27,7 @@ export function SocialLink({
       aria-label={label}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={cn(
-        'inline-flex items-center gap-2 rounded text-sm text-muted-foreground transition-colors hover:text-foreground',
+        'flex w-fit items-center gap-2 rounded text-sm text-muted-foreground transition-colors hover:text-foreground',
         focusRingBase
       )}
     >

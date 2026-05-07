@@ -34,6 +34,8 @@ export function useContactForm() {
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
     defaultValues: {
       name: '',
       email: '',

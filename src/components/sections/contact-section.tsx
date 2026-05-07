@@ -1,7 +1,9 @@
 'use client';
 
+import { CheckCircle2 } from 'lucide-react';
 import { FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
+
 import {
   Form,
   FormControl,
@@ -16,9 +18,9 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/shared/section-heading';
 import { PageContainer } from '@/components/shared/page-container';
 import { SocialLink } from '@/components/shared/social-link';
-import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { useContactForm } from '@/hooks/use-contact-form';
 import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
 
 export function ContactSection() {
   const { form, onSubmit, submitState, blockedMessage, isDisabled } = useContactForm();
@@ -100,24 +102,40 @@ export function ContactSection() {
                 <FormField
                   control={form.control}
                   name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        WhatsApp / Telefone <span aria-hidden="true" className="text-destructive">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="tel"
-                          placeholder="(11) 99999-9999"
-                          autoComplete="tel"
-                          disabled={isDisabled}
-                          maxLength={20}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => {
+                    const isPhoneValid =
+                      !!form.formState.touchedFields.phone &&
+                      !form.formState.errors.phone &&
+                      field.value.length >= 8;
+
+                    return (
+                      <FormItem>
+                        <FormLabel>
+                          WhatsApp / Telefone <span aria-hidden="true" className="text-destructive">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              {...field}
+                              type="tel"
+                              placeholder="(11) 99999-9999"
+                              autoComplete="tel"
+                              disabled={isDisabled}
+                              maxLength={20}
+                              className={cn(isPhoneValid && 'pr-10')}
+                            />
+                            {isPhoneValid && (
+                              <CheckCircle2
+                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--whatsapp-green)]"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
 
                 <FormField
@@ -190,25 +208,14 @@ export function ContactSection() {
           <div className="flex flex-col justify-center gap-8">
             <div>
               <h3 className="mb-3 text-lg font-semibold text-foreground">
-                Prefere falar diretamente?
+                Outros canais de contato
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Se preferir, você pode entrar em contato diretamente pelo WhatsApp ou me encontrar no LinkedIn.
-                Responderei assim que possível.
+                Se preferir, pode me contatar pelo e-mail ou me encontrar no LinkedIn.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <SocialLink
-                href={buildWhatsAppUrl(siteConfig.phone)}
-                label="Abrir WhatsApp"
-                icon={FaWhatsapp}
-                iconClassName="text-[var(--whatsapp-green)]"
-                external
-              >
-                WhatsApp
-              </SocialLink>
-
+            <div className="flex flex-col gap-3">
               {siteConfig.email && (
                 <SocialLink
                   href={`mailto:${siteConfig.email}`}
