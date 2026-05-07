@@ -1,16 +1,10 @@
-'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { PageContainer } from '@/components/shared/page-container';
 import { MobileMenu } from '@/components/layout/mobile-menu';
-import { navigation } from '@/config/navigation';
+import { NavLinks } from '@/components/layout/nav-links';
 import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
 
 export function Header() {
-  const pathname = usePathname();
-
   return (
     <header className="sticky top-0 z-40 border-b border-brand-sand/40 bg-white/38 shadow-[0_1px_20px_rgba(47,74,63,0.05)] backdrop-blur-[16px]">
       <PageContainer>
@@ -24,24 +18,7 @@ export function Header() {
           </Link>
 
           <nav aria-label="Navegação principal" className="hidden md:block">
-            <ul className="flex items-center gap-1">
-              {navigation.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      pathname === item.href
-                        ? 'bg-brand-sand text-brand-forest'
-                        : 'text-foreground hover:bg-brand-sand/60'
-                    )}
-                    aria-current={pathname === item.href ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <NavLinks />
           </nav>
 
           <MobileMenu />
