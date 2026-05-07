@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
 
-type PageContainerProps = {
+interface PageContainerProps {
   children: React.ReactNode;
   className?: string;
-};
+}
 
 export function PageContainer({ children, className }: PageContainerProps) {
   return (

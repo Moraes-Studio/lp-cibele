@@ -1,25 +1,38 @@
 import { z } from 'zod';
 
-const envSchema = z.object({
-  // Server-side only
-  RESEND_API_KEY: z.string().min(1),
-  CONTACT_EMAIL_TO: z.string().email(),
-  CONTACT_EMAIL_FROM: z.string().email(),
+function convertEmptyStringToUndefined(rawValue: unknown): unknown {
+  return rawValue === '' ? undefined : rawValue;
+}
 
-  // Public
-  NEXT_PUBLIC_SITE_URL: z.string().url(),
-  NEXT_PUBLIC_WHATSAPP_NUMBER: z.string().optional(),
-  NEXT_PUBLIC_INSTAGRAM_URL: z.string().url().optional(),
-  NEXT_PUBLIC_LINKEDIN_URL: z.string().url().optional(),
-  NEXT_PUBLIC_CRP: z.string().optional(),
-  NEXT_PUBLIC_EMAIL: z.string().email().optional(),
+const optionalUrlField = z.preprocess(
+  convertEmptyStringToUndefined,
+  z.url().optional()
+);
+
+const optionalEmailField = z.preprocess(
+  convertEmptyStringToUndefined,
+  z.email().optional()
+);
+
+const optionalStringField = z.preprocess(
+  convertEmptyStringToUndefined,
+  z.string().optional()
+);
+
+const environmentSchema = z.object({
+  NEXT_PUBLIC_SITE_URL: z.url(),
+  NEXT_PUBLIC_WHATSAPP_NUMBER: optionalStringField,
+  NEXT_PUBLIC_INSTAGRAM_URL: optionalUrlField,
+  NEXT_PUBLIC_LINKEDIN_URL: optionalUrlField,
+  NEXT_PUBLIC_CRP: optionalStringField,
+  NEXT_PUBLIC_EMAIL: optionalEmailField,
 });
 
-const parsedEnv = envSchema.safeParse(process.env);
+const validationResult = environmentSchema.safeParse(process.env);
 
-if (!parsedEnv.success) {
-  console.error('❌ Invalid environment variables:', parsedEnv.error.flatten());
+if (!validationResult.success) {
+  console.error('❌ Invalid environment variables:', z.flattenError(validationResult.error));
   throw new Error('Invalid environment variables');
 }
 
-export const env = parsedEnv.data;
+export const env = validationResult.data;

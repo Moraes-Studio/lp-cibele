@@ -2,12 +2,22 @@
 
 /* ─── CSS variables (brand + shadcn/ui) ─── */
 :root {
-  /* brand palette */
+  /* brand palette — DS aprovado */
   --brand-forest: #2f4a3f;
   --brand-sage: #6d846f;
   --brand-leaf: #a7b89a;
   --brand-sand: #f2e8da;
   --brand-ivory: #faf7f2;
+
+  /* card accent colors — DS §11 */
+  --card-psicoterapia: #d4a5a5;
+  --card-transicoes: #8fb87d;
+  --card-relacionamentos: #f5e6d3;
+  --card-saude: #ede6f0;
+
+  /* shadows — DS §6 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
 
   /* shadcn/ui semantic tokens mapped to brand */
   --background: var(--brand-ivory);
@@ -26,7 +36,7 @@
   --secondary-foreground: var(--brand-forest);
 
   --muted: var(--brand-sand);
-  --muted-foreground: var(--brand-sage);
+  --muted-foreground: #546858;
 
   --accent: var(--brand-sand);
   --accent-foreground: var(--brand-forest);
@@ -49,6 +59,12 @@
   --color-brand-leaf: var(--brand-leaf);
   --color-brand-sand: var(--brand-sand);
   --color-brand-ivory: var(--brand-ivory);
+
+  /* card accent colors */
+  --color-card-psicoterapia: var(--card-psicoterapia);
+  --color-card-transicoes: var(--card-transicoes);
+  --color-card-relacionamentos: var(--card-relacionamentos);
+  --color-card-saude: var(--card-saude);
 
   /* expose semantic tokens */
   --color-background: var(--background);
@@ -88,6 +104,40 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans, Arial, sans-serif);
   -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+
+/* ─── Secondary hero button — hover premium ─── */
+.btn-hero-secondary {
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    color 240ms ease,
+    backdrop-filter 240ms ease;
+}
+
+.btn-hero-secondary:hover {
+  background-color: rgba(239, 227, 221, 0.85);
+  border-color: #C98F86;
+  color: #234438;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 24px rgba(122, 78, 70, 0.08),
+    0 0 0 2px rgba(201, 143, 134, 0.10),
+    0 0 18px rgba(231, 193, 181, 0.18);
+  backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-hero-secondary {
+    transition: none;
+  }
+  .btn-hero-secondary:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 /* ─── prefers-reduced-motion ─── */

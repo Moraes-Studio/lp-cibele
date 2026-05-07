@@ -1,9 +1,11 @@
+import '@/config/env';
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { SkipLink } from '@/components/shared/skip-link';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { siteConfig } from '@/config/site';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,15 +20,12 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cibelepsicologia.com.br'
-  ),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Cibele Rosa | Psicologia Clínica para Adultos',
-    template: '%s | Cibele Rosa Psicologia',
+    default: `${siteConfig.name} | ${siteConfig.role}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'Atendimento em psicologia clínica para adultos com foco em saúde emocional, autoconhecimento, transições de vida e fortalecimento interno.',
+  description: siteConfig.description,
   keywords: [
     'psicologia clínica',
     'psicoterapia para adultos',
@@ -34,30 +33,28 @@ export const metadata: Metadata = {
     'saúde mental',
     'autoconhecimento',
   ],
-  authors: [{ name: 'Cibele Rosa' }],
-  creator: 'Cibele Rosa',
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
     url: '/',
-    siteName: 'Cibele Rosa Psicologia',
-    title: 'Cibele Rosa | Psicologia Clínica para Adultos',
-    description:
-      'Atendimento em psicologia clínica para adultos com foco em saúde emocional, autoconhecimento, transições de vida e fortalecimento interno.',
+    siteName: `${siteConfig.name} Psicologia`,
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.description,
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Cibele Rosa Psicologia Clínica',
+        alt: `${siteConfig.name} Psicologia Clínica`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cibele Rosa | Psicologia Clínica para Adultos',
-    description:
-      'Atendimento em psicologia clínica para adultos com foco em saúde emocional, autoconhecimento, transições de vida e fortalecimento interno.',
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.description,
     images: ['/og-image.png'],
   },
   robots: {
@@ -84,6 +81,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
       <body>
+        <div
+          className="pointer-events-none fixed inset-0 z-[5] opacity-[0.025]"
+          style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            mixBlendMode: 'soft-light',
+          }}
+          aria-hidden="true"
+        />
         <SkipLink />
         <Header />
         <main id="main-content" tabIndex={-1}>
