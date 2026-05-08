@@ -19,7 +19,7 @@ export function AboutSection() {
         />
       </div>
       <PageContainer>
-        <div className="relative z-10 grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
+        <div className="relative z-10 grid gap-10 md:grid-cols-2 md:items-center md:gap-12 lg:gap-14">
           <div className="space-y-6 lg:pr-6">
             <SectionHeading
               id="about-heading"
