@@ -7,7 +7,7 @@ export function AboutSection() {
   return (
     <section
       aria-labelledby="about-heading"
-      className="relative bg-brand-ivory py-14 md:py-20"
+      className="relative bg-brand-ivory py-16 md:py-24"
     >
       <div className="absolute inset-0 overflow-hidden opacity-15" aria-hidden="true">
         <Image
@@ -19,8 +19,8 @@ export function AboutSection() {
         />
       </div>
       <PageContainer>
-        <div className="relative z-10 grid gap-12 md:grid-cols-2 md:items-center">
-          <div className="space-y-6">
+        <div className="relative z-10 grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
+          <div className="space-y-6 lg:pr-6">
             <SectionHeading
               id="about-heading"
               eyebrow="Sobre mim"
@@ -50,13 +50,13 @@ export function AboutSection() {
             )}
           </div>
 
-          <div className="relative hidden aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl shadow-[0_4px_32px_rgba(31,64,52,0.12)] md:mx-auto md:block">
+          <div className="relative hidden aspect-[3/4] w-full max-w-[22rem] overflow-hidden rounded-3xl ring-1 ring-brand-forest/[0.08] shadow-[0_8px_40px_rgba(31,64,52,0.14),0_2px_10px_rgba(31,64,52,0.06)] md:mx-auto md:block">
             <Image
               src="/psicologa/cibele.webp"
               alt="Cibele Rosa, psicóloga clínica"
               fill
-              sizes="(max-width: 768px) 0px, 384px"
-              className="object-cover object-top"
+              sizes="(max-width: 768px) 0px, 352px"
+              className="object-cover object-[50%_12%]"
               priority
             />
           </div>
