@@ -59,7 +59,7 @@ export function WhatsAppButton({
         className
       )}
     >
-      <FaWhatsapp className="h-4 w-4 shrink-0" aria-hidden="true" />
+      <FaWhatsapp className="h-5 w-5 shrink-0" aria-hidden="true" />
       {label}
     </Link>
   );

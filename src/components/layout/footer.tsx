@@ -38,7 +38,7 @@ export function Footer() {
   const whatsappUrl = siteConfig.phone ? buildWhatsAppUrl(siteConfig.phone) : null;
 
   return (
-    <footer className="border-t-4 border-brand-leaf/30 bg-brand-gradient text-brand-ivory">
+    <footer className="bg-brand-gradient-footer text-brand-ivory">
       <PageContainer>
         <div className="flex flex-col gap-4 py-10 md:flex-row md:items-center md:justify-between">
           <div>
