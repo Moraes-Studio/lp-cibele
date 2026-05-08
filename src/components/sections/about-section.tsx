@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { UserRound } from 'lucide-react';
 import { PageContainer } from '@/components/shared/page-container';
 import { SectionHeading } from '@/components/shared/section-heading';
 import { siteConfig } from '@/config/site';
@@ -8,7 +7,7 @@ export function AboutSection() {
   return (
     <section
       aria-labelledby="about-heading"
-      className="relative bg-white py-14 md:py-20"
+      className="relative bg-brand-ivory py-14 md:py-20"
     >
       <div className="absolute inset-0 overflow-hidden opacity-15" aria-hidden="true">
         <Image
@@ -26,21 +25,40 @@ export function AboutSection() {
               id="about-heading"
               eyebrow="Sobre mim"
               title={siteConfig.name}
-              description="Sou psicóloga clínica com formação voltada ao atendimento de adultos. Acredito que o processo terapêutico é um espaço de escuta, reflexão e transformação — um lugar onde cada pessoa pode se encontrar com mais clareza sobre si mesma e sobre suas relações."
             />
+            <div className="space-y-4 text-base leading-7 text-muted-foreground md:text-lg">
+              <p>
+                Sou psicóloga clínica com mais de 20 anos de experiência, especializada em
+                Terapia Cognitivo-Comportamental (TCC). Minha atuação é pautada em escuta
+                acolhedora, ética e humanizada, respeitando a individualidade, o ritmo e as
+                necessidades de cada paciente.
+              </p>
+              <p>
+                Ao longo da minha trajetória, atuei em programas de promoção da saúde mental e
+                suporte psicológico vinculados a grandes instituições financeiras, hospitalares e
+                organizações de alcance nacional. Essa experiência ampliou o contato com diversas
+                demandas emocionais, ocupacionais e organizacionais, envolvendo acolhimento
+                psicológico, intervenções breves e elaboração de documentos técnicos.
+              </p>
+              <p>
+                Acredito na psicoterapia como um espaço de escuta, reflexão e desenvolvimento
+                emocional, capaz de favorecer maior equilíbrio psicológico e qualidade de vida.
+              </p>
+            </div>
             {siteConfig.crp && (
               <p className="text-sm font-medium text-muted-foreground">{siteConfig.crp}</p>
             )}
           </div>
 
-          <div
-            className="relative flex aspect-square w-full max-w-sm items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-brand-sand via-brand-ivory to-brand-sand/60 shadow-[0_4px_32px_rgba(47,74,63,0.08)] md:mx-auto"
-            aria-hidden="true"
-          >
-            <div className="absolute inset-0 opacity-20" aria-hidden="true">
-              <Image src="/background/background.png" alt="" fill sizes="512px" className="object-cover object-center" />
-            </div>
-            <UserRound className="relative z-10 h-28 w-28 text-brand-sage/40" strokeWidth={0.75} />
+          <div className="relative hidden aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl shadow-[0_4px_32px_rgba(31,64,52,0.12)] md:mx-auto md:block">
+            <Image
+              src="/psicologa/cibele.webp"
+              alt="Cibele Rosa, psicóloga clínica"
+              fill
+              sizes="(max-width: 768px) 0px, 384px"
+              className="object-cover object-top"
+              priority
+            />
           </div>
         </div>
       </PageContainer>
