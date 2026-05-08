@@ -32,7 +32,7 @@ export function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[88vh] items-center overflow-hidden bg-brand-ivory py-16 md:py-20"
+      className="relative flex min-h-[72vh] items-center overflow-hidden bg-brand-ivory py-12 md:min-h-[88vh] md:py-20"
     >
       {/* background botanical — next/image com priority para ser candidato a LCP */}
       <Image
@@ -78,7 +78,7 @@ export function HeroSection() {
       />
 
       <PageContainer>
-        <div className="relative z-10 grid items-center gap-12 md:grid-cols-2">
+        <div className="relative z-10 grid items-center gap-10 md:grid-cols-2 lg:grid-cols-[1fr_1.25fr] lg:gap-14">
           {/* coluna texto */}
           <div className="space-y-8">
             <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
@@ -87,7 +87,7 @@ export function HeroSection() {
 
             <h1
               id="hero-heading"
-              className="font-serif text-4xl font-bold leading-tight tracking-tight text-brand-forest md:text-5xl lg:text-6xl"
+              className="font-serif text-3xl font-bold leading-tight tracking-tight text-brand-forest md:text-[3.25rem] lg:text-[4.25rem]"
             >
               Um espaço seguro para cuidar de você
             </h1>
@@ -100,18 +100,19 @@ export function HeroSection() {
               <WhatsAppButton
                 label="Agendar Primeira Consulta"
                 message="Olá, gostaria de agendar uma primeira consulta."
+                className="w-full justify-center sm:w-auto sm:justify-start"
               />
               <Link
                 href="/servicos"
-                className="btn-hero-secondary inline-flex items-center justify-center rounded-lg border border-brand-forest/40 bg-brand-ivory/80 px-7 py-3.5 text-sm font-medium text-brand-forest focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                className="btn-hero-secondary inline-flex w-full items-center justify-center rounded-lg border-2 border-brand-forest/65 bg-brand-ivory/90 px-7 py-3.5 text-sm font-semibold text-brand-forest focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 sm:w-auto"
               >
                 Conhecer os Serviços
               </Link>
             </div>
           </div>
 
-          {/* coluna ilustração + sparkles decorativos */}
-          <div className="relative flex justify-center md:justify-end">
+          {/* coluna ilustração + sparkles decorativos — oculta no mobile */}
+          <div className="relative hidden justify-center md:flex md:justify-end">
             {/* sparkles dourado-rosé ao redor da ilustração */}
             <Sparkle className="absolute left-[8%] top-[8%]"  size={14} color="#C98F86" opacity={0.60} />
             <Sparkle className="absolute right-[4%] top-[18%]" size={10} color="#DDA89B" opacity={0.50} />
@@ -126,8 +127,8 @@ export function HeroSection() {
               height={560}
               priority
               fetchPriority="high"
-              sizes="(max-width: 768px) 352px, (max-width: 1024px) 480px, 560px"
-              className="relative z-10 w-full max-w-[22rem] md:max-w-[30rem] lg:max-w-[36rem] [filter:contrast(1.15)_brightness(0.93)_sepia(0.12)_saturate(1.05)]"
+              sizes="(max-width: 1023px) 480px, 704px"
+              className="relative z-10 w-full max-w-[30rem] lg:max-w-[44rem] [filter:contrast(1.15)_brightness(0.93)_sepia(0.12)_saturate(1.05)]"
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { navigation } from '@/config/navigation';
+import { WhatsAppButton } from '@/components/shared/whatsapp-button';
 import { cn, focusRingBase, navActiveClasses } from '@/lib/utils';
 
 export function MobileMenu() {
@@ -46,6 +47,13 @@ export function MobileMenu() {
             ))}
           </ul>
         </nav>
+        <div className="mt-6 border-t border-border/40 pt-6">
+          <WhatsAppButton
+            label="Agendar pelo WhatsApp"
+            message="Olá, gostaria de agendar uma primeira consulta."
+            className="w-full justify-center"
+          />
+        </div>
       </SheetContent>
     </Sheet>
   );

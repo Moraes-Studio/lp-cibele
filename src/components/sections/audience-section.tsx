@@ -21,12 +21,15 @@ export function AudienceSection() {
 
           <ul className="grid gap-3 sm:grid-cols-2" role="list">
             {audienceItems.map((item) => (
-              <li key={item} className="flex items-start gap-3">
+              <li
+                key={item}
+                className="flex items-start gap-3 rounded-xl border border-border/40 bg-white/70 px-4 py-3.5 shadow-[var(--shadow-sm)]"
+              >
                 <span
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-forest/10 text-brand-forest"
+                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-forest/15 text-brand-forest"
                   aria-hidden="true"
                 >
-                  <Check className="h-3 w-3" />
+                  <Check className="h-3 w-3" strokeWidth={2.5} />
                 </span>
                 <span className="text-sm leading-6 text-foreground">{item}</span>
               </li>

@@ -23,7 +23,8 @@ export function ServiceCard({ title, description, icon, iconBgClass }: ServiceCa
 
   return (
     <Card className="group flex h-full flex-col border-border/60 shadow-[var(--shadow-sm)] transition-all duration-300 motion-safe:hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(47,74,63,0.12)] hover:border-brand-leaf/50">
-      <CardHeader className="flex flex-col gap-4">
+      <CardHeader className="flex flex-col items-center gap-4 text-center">
+        <CardTitle className="text-base leading-snug">{title}</CardTitle>
         <div
           className={cn(
             'flex h-14 w-14 items-center justify-center rounded-full text-brand-forest transition-opacity group-hover:opacity-90',
@@ -33,9 +34,8 @@ export function ServiceCard({ title, description, icon, iconBgClass }: ServiceCa
         >
           <Icon className="h-7 w-7" />
         </div>
-        <CardTitle className="text-base leading-snug">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 pt-0">
+      <CardContent className="flex-1 pt-0 text-center">
         <CardDescription className="text-sm leading-relaxed">{description}</CardDescription>
       </CardContent>
     </Card>

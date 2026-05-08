@@ -5,7 +5,7 @@ export function CtaSection() {
   return (
     <section
       aria-labelledby="cta-heading"
-      className="relative bg-brand-forest py-14 md:py-20"
+      className="relative bg-brand-gradient py-14 md:py-20"
     >
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 invert"
@@ -26,7 +26,7 @@ export function CtaSection() {
           </p>
           <WhatsAppButton
             label="Falar pelo WhatsApp"
-            className="bg-brand-ivory text-brand-forest hover:bg-brand-sand"
+            className="bg-brand-ivory text-brand-forest hover:bg-brand-rose"
           />
         </div>
       </PageContainer>

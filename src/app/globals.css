@@ -3,12 +3,15 @@
 /* ─── CSS variables (brand + shadcn/ui) ─── */
 :root {
   /* brand palette — DS aprovado */
-  --brand-forest: #2f4a3f;
+  --brand-forest: #1F4034;
+  --brand-forest-soft: #2B4F43;
+  --brand-forest-light: #35584C;
   --brand-sage: #6d846f;
   --brand-sage-strong: #4a6354; /* WCAG AA ≥5.4:1 on white/ivory — use for small text */
   --brand-leaf: #a7b89a;
   --brand-sand: #f2e8da;
-  --brand-ivory: #faf7f2;
+  --brand-ivory: #F6F1EB;
+  --brand-rose: #D8C2BA;
 
   /* card accent colors — DS §11 */
   --card-psicoterapia: #d4a5a5;
@@ -49,8 +52,8 @@
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: rgba(47, 74, 63, 0.16);
-  --input: rgba(47, 74, 63, 0.16);
+  --border: rgba(31, 64, 52, 0.16);
+  --input: rgba(31, 64, 52, 0.16);
   --ring: var(--brand-sage);
 
   --radius: 0.625rem;
@@ -60,11 +63,14 @@
 @theme inline {
   /* expose brand colors as Tailwind utilities */
   --color-brand-forest: var(--brand-forest);
+  --color-brand-forest-soft: var(--brand-forest-soft);
+  --color-brand-forest-light: var(--brand-forest-light);
   --color-brand-sage: var(--brand-sage);
   --color-brand-sage-strong: var(--brand-sage-strong);
   --color-brand-leaf: var(--brand-leaf);
   --color-brand-sand: var(--brand-sand);
   --color-brand-ivory: var(--brand-ivory);
+  --color-brand-rose: var(--brand-rose);
 
   /* card accent colors */
   --color-card-psicoterapia: var(--card-psicoterapia);
@@ -121,6 +127,13 @@ body {
 ::selection {
   background-color: var(--brand-leaf);
   color: var(--brand-forest);
+}
+
+/* ─── Brand gradient — dark sections (Footer, CTA) ─── */
+.bg-brand-gradient {
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 48%),
+    linear-gradient(135deg, #152b23 0%, #1F4034 40%, #2B5244 72%, #3d7056 100%);
 }
 
 /* ─── Secondary hero button — hover premium ─── */

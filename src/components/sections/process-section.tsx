@@ -26,7 +26,7 @@ export function ProcessSection() {
   return (
     <section
       aria-labelledby="process-heading"
-      className="bg-white py-14 md:py-20"
+      className="bg-brand-ivory py-14 md:py-20"
     >
       <PageContainer>
         <div className="space-y-12">
@@ -38,11 +38,11 @@ export function ProcessSection() {
             accent
           />
 
-          <ol className="grid gap-8 md:grid-cols-3">
+          <ol className="grid gap-10 md:grid-cols-3 md:gap-8">
             {steps.map((step) => (
-              <li key={step.number} className="space-y-3">
+              <li key={step.number} className="space-y-4 border-l-2 border-brand-leaf/50 pl-5 md:border-l-0 md:border-t-2 md:pl-0 md:pt-5">
                 <span
-                  className="font-serif text-4xl font-semibold text-brand-sage"
+                  className="font-serif text-5xl font-semibold text-brand-sage-strong"
                   aria-hidden="true"
                 >
                   {step.number}

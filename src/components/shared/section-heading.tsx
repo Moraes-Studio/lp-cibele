@@ -31,7 +31,7 @@ export function SectionHeading({
     );
 
   return (
-    <div className={cn('space-y-4', align === 'center' && 'text-center')}>
+    <div className={cn('space-y-4', align === 'center' ? 'text-center' : 'text-center md:text-left')}>
       {eyebrow && (
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-sage-strong">{eyebrow}</p>
       )}
@@ -39,8 +39,8 @@ export function SectionHeading({
       {accent && (
         <div
           className={cn(
-            'h-0.5 w-10 rounded-full bg-brand-sage',
-            align === 'center' && 'mx-auto'
+            'h-0.5 w-16 rounded-full bg-brand-sage',
+            align === 'center' ? 'mx-auto' : 'mx-auto md:mx-0'
           )}
           aria-hidden="true"
         />

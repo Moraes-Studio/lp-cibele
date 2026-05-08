@@ -15,7 +15,7 @@ export const services: ServiceItem[] = [
     description:
       'Espaço de escuta e reflexão para adultos que desejam compreender melhor suas questões emocionais e pessoais.',
     icon: 'user',
-    iconBgClass: 'bg-card-psicoterapia/40',
+    iconBgClass: 'bg-card-psicoterapia/35',
   },
   {
     id: 'transicoes-vida',
@@ -23,7 +23,7 @@ export const services: ServiceItem[] = [
     description:
       'Apoio em momentos de mudança, tomada de decisão e reorganização pessoal ou profissional.',
     icon: 'compass',
-    iconBgClass: 'bg-card-transicoes/25',
+    iconBgClass: 'bg-card-transicoes/35',
   },
   {
     id: 'relacionamentos',
@@ -31,7 +31,7 @@ export const services: ServiceItem[] = [
     description:
       'Compreensão de padrões relacionais, vínculos e dificuldades nas relações interpessoais.',
     icon: 'users',
-    iconBgClass: 'bg-card-relacionamentos',
+    iconBgClass: 'bg-card-relacionamentos/35',
   },
   {
     id: 'saude-emocional',
@@ -39,7 +39,7 @@ export const services: ServiceItem[] = [
     description:
       'Apoio em quadros de ansiedade, depressão, estresse e outros sofrimentos emocionais.',
     icon: 'heart',
-    iconBgClass: 'bg-card-saude',
+    iconBgClass: 'bg-card-saude/35',
   },
 ];
 
