@@ -16,7 +16,8 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
-  display: 'swap',
+  display: 'optional',
+  preload: true,
 });
 
 export const metadata: Metadata = {
