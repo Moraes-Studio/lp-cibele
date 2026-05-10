@@ -6,7 +6,6 @@ import { siteConfig } from '@/config/site';
 export const metadata: Metadata = {
   title: 'Política de Privacidade',
   description: 'Saiba como tratamos seus dados pessoais em conformidade com a LGPD.',
-  robots: { index: false },
   alternates: { canonical: '/privacidade' },
 };
 
