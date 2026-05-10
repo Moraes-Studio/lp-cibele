@@ -22,11 +22,11 @@ const steps = [
   },
 ] as const;
 
-export function ProcessSection() {
+export function ProcessSection({ bg = 'white' }: { bg?: 'white' | 'ivory' }) {
   return (
     <section
       aria-labelledby="process-heading"
-      className="bg-brand-ivory py-14 md:py-20"
+      className={bg === 'ivory' ? 'bg-brand-ivory py-14 md:py-20' : 'bg-white py-14 md:py-20'}
     >
       <PageContainer>
         <div className="space-y-12">

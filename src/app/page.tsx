@@ -23,7 +23,7 @@ export default function HomePage() {
       <AboutSection />
       <ServicesPreviewSection />
       <AudienceSection />
-      <ProcessSection />
+      <ProcessSection bg="ivory" />
       <CtaSection />
       <WhatsAppButton variant="floating" />
     </>
