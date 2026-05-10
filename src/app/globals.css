@@ -112,6 +112,30 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* error — terracotta elegante (WCAG AA ~5.8:1 on white) */
+  --color-error-terracotta: #9B4E47;
+  --color-error-terracotta-ring: rgba(155, 78, 71, 0.12);
+
+  /* animations */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s ease-out both;
+  --animate-message-appear: message-appear 0.28s ease-out both;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes message-appear {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Base styles ─── */
