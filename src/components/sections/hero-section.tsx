@@ -34,16 +34,10 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[620px] items-center overflow-hidden bg-brand-ivory py-16 md:min-h-[720px] md:py-24"
     >
-      {/* background botanical — next/image com priority para ser candidato a LCP */}
-      <Image
-        src="/background/background2.webp"
-        alt=""
-        fill
-        priority
-        fetchPriority="high"
-        quality={75}
-        sizes="100vw"
-        className="object-cover object-center opacity-15"
+      {/* background botanical — div CSS não é candidato a LCP */}
+      <div
+        className="absolute inset-0 opacity-15"
+        style={{ backgroundImage: 'url(/background/background2.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
         aria-hidden="true"
       />
 
