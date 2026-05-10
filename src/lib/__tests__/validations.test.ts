@@ -75,14 +75,33 @@ describe('contactFormSchema', () => {
         { name: 'empty phone', override: { phone: '' } },
         { name: 'phone too short (3 digits)', override: { phone: '123' } },
         { name: 'phone with 9 digits only (no DDD)', override: { phone: '987654321' } },
-        { name: 'phone over 20 chars', override: { phone: '1'.repeat(21) } },
         { name: 'phone with letters', override: { phone: 'abc-def-ghij' } },
         { name: 'phone with special chars', override: { phone: '99999@9999!' } },
+        { name: 'spam with 15 digits (555119999999999)', override: { phone: '555119999999999' } },
+        { name: 'too many digits with country code (14 digits)', override: { phone: '55119999999999' } },
+        { name: 'invalid DDD (00)', override: { phone: '00999999999' } },
+        { name: 'invalid DDD (09)', override: { phone: '09999999999' } },
+        { name: 'mobile missing leading 9 (11 digits)', override: { phone: '11199999999' } },
+        { name: 'country code not 55', override: { phone: '441199999999' } },
+      ];
+
+      const phoneValidCases: ValidationCase[] = [
+        { name: 'mobile with DDD', override: { phone: '(11) 99999-9999' } },
+        { name: 'landline with DDD', override: { phone: '(11) 3456-7890' } },
+        { name: 'mobile with +55', override: { phone: '+55 11 99999-9999' } },
+        { name: 'mobile digits only', override: { phone: '11999999999' } },
+        { name: 'landline digits only', override: { phone: '1134567890' } },
+        { name: 'mobile with country code digits', override: { phone: '5511999999999' } },
       ];
 
       it.each(phoneCases)('rejects $name', ({ override }) => {
         const result = contactFormSchema.safeParse({ ...BASE, ...override });
         expect(result.success).toBe(false);
+      });
+
+      it.each(phoneValidCases)('accepts $name', ({ override }) => {
+        const result = contactFormSchema.safeParse({ ...BASE, ...override });
+        expect(result.success).toBe(true);
       });
     });
 
@@ -117,7 +136,7 @@ describe('contactFormSchema', () => {
       expect(result.success).toBe(false);
       if (!result.success) {
         const message = result.error.issues[0].message;
-        expect(message).toMatch(/3 caracteres/);
+        expect(message).toMatch(/continuarmos/);
       }
     });
 
@@ -126,7 +145,7 @@ describe('contactFormSchema', () => {
       expect(result.success).toBe(false);
       if (!result.success) {
         const message = result.error.issues[0].message;
-        expect(message).toMatch(/nome completo/);
+        expect(message).toMatch(/sobrenome/);
       }
     });
 

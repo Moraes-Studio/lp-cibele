@@ -54,12 +54,12 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'inline-flex items-center gap-2 rounded-md bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-brand-forest-soft',
+        'inline-flex items-center justify-center gap-3 rounded-md bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-brand-forest-soft',
         focusRingBase,
         className
       )}
     >
-      <FaWhatsapp className="h-5 w-5 shrink-0" aria-hidden="true" />
+      <FaWhatsapp className="h-6 w-6 shrink-0" aria-hidden="true" />
       {label}
     </Link>
   );

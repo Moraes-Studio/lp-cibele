@@ -97,7 +97,7 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
+      className={cn("data-[error=true]:text-error-terracotta", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -147,7 +147,10 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-sm text-destructive", className)}
+      className={cn(
+        "text-xs leading-relaxed text-error-terracotta motion-safe:animate-message-appear",
+        className
+      )}
       {...props}
     >
       {body}

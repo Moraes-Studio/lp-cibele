@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { sanitizeAll } from '@/lib/sanitize';
 import {
   checkContactRateLimit,
   recordContactSent,
@@ -13,7 +12,7 @@ import {
 } from '@/lib/contact-rate-limit';
 import { siteConfig } from '@/config/site';
 
-export type ContactSubmitState = 'idle' | 'sending' | 'success' | 'error' | 'blocked' | 'threat';
+export type ContactSubmitState = 'idle' | 'sending' | 'success' | 'error' | 'blocked';
 
 const WHATSAPP_OPEN_DELAY_MS = 600;
 const FORM_RESET_DELAY_MS = 2500;
@@ -59,26 +58,7 @@ export function useContactForm() {
 
     setSubmitState('sending');
 
-    const sanitizeResult = sanitizeAll({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    });
-
-    if (!sanitizeResult.ok) {
-      setSubmitState('threat');
-      return;
-    }
-
-    const whatsAppMessage = buildWhatsAppMessage({
-      ...data,
-      name: sanitizeResult.values.name,
-      email: sanitizeResult.values.email,
-      phone: sanitizeResult.values.phone,
-      message: sanitizeResult.values.message,
-    });
-
+    const whatsAppMessage = buildWhatsAppMessage(data);
     const whatsAppUrl = buildWhatsAppUrl(siteConfig.phone, whatsAppMessage);
 
     if (!whatsAppUrl) {

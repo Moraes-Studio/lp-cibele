@@ -28,12 +28,12 @@ export function ContactSection() {
     <section
       id="contato"
       aria-labelledby="contato-heading"
-      className="relative py-20 overflow-hidden"
+      className="relative overflow-hidden bg-brand-ivory py-20 md:py-28"
     >
-      {/* Organic background blobs — decorative only */}
+      {/* blobs decorativos */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -right-20 h-[28rem] w-[28rem] rounded-full bg-brand-leaf/[0.08] blur-3xl" />
-        <div className="absolute bottom-0 -left-24 h-72 w-72 rounded-full bg-brand-sand/80 blur-2xl" />
+        <div className="absolute -right-24 -top-32 h-[32rem] w-[32rem] rounded-full bg-brand-leaf/[0.07] blur-3xl" />
+        <div className="absolute -bottom-16 -left-20 h-80 w-80 rounded-full bg-brand-rose/20 blur-3xl" />
       </div>
 
       <PageContainer>
@@ -41,21 +41,22 @@ export function ContactSection() {
           id="contato-heading"
           eyebrow="Fale comigo"
           title="Entre em contato"
-          description="Preencha o formulário e sua mensagem chegará diretamente no meu WhatsApp. Respondo assim que possível."
+          description="Preencha o formulário e sua mensagem chegará diretamente no meu WhatsApp. Respondo com cuidado e atenção."
           align="center"
           accent
         />
 
-        <div className="relative mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Form card */}
-          <div className="rounded-2xl bg-card p-8 shadow-[var(--shadow-md)] ring-1 ring-border/60">
+        <div className="relative mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+
+          {/* Formulário */}
+          <div className="rounded-2xl bg-white/80 p-8 shadow-[0_2px_24px_rgba(31,64,52,0.07)] ring-1 ring-brand-forest/[0.06] md:p-10">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 noValidate
-                className="space-y-6"
+                className="space-y-7"
               >
-                {/* Honeypot — hidden from real users via CSS, filled by bots */}
+                {/* Honeypot */}
                 <input
                   type="text"
                   className="hidden"
@@ -70,14 +71,13 @@ export function ContactSection() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Nome completo{' '}
-                        <span aria-hidden="true" className="text-destructive">*</span>
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                        Nome completo
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="Seu nome e sobrenome"
+                          placeholder="Como prefere ser chamada?"
                           autoComplete="name"
                           disabled={isDisabled}
                           maxLength={100}
@@ -93,9 +93,8 @@ export function ContactSection() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        E-mail{' '}
-                        <span aria-hidden="true" className="text-destructive">*</span>
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                        E-mail
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -123,9 +122,8 @@ export function ContactSection() {
 
                     return (
                       <FormItem>
-                        <FormLabel>
-                          WhatsApp / Telefone{' '}
-                          <span aria-hidden="true" className="text-destructive">*</span>
+                        <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                          WhatsApp / Telefone
                         </FormLabel>
                         <div className="relative">
                           <FormControl>
@@ -141,7 +139,7 @@ export function ContactSection() {
                           </FormControl>
                           {isPhoneValid && (
                             <CheckCircle2
-                              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--whatsapp-green)]"
+                              className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-sage-strong"
                               aria-hidden="true"
                             />
                           )}
@@ -157,14 +155,13 @@ export function ContactSection() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Mensagem{' '}
-                        <span aria-hidden="true" className="text-destructive">*</span>
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                        Mensagem
                       </FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Conte um pouco sobre o que está buscando..."
+                          placeholder="Conte um pouco sobre o que está buscando — não precisa ser longo."
                           rows={4}
                           disabled={isDisabled}
                           maxLength={1000}
@@ -176,33 +173,29 @@ export function ContactSection() {
                   )}
                 />
 
+                {/* Feedback de estado */}
                 {submitState === 'success' && (
-                  <p role="status" className="text-sm font-medium text-[var(--whatsapp-green)]">
-                    Sua mensagem foi preparada. O WhatsApp abrirá em instantes.
+                  <p role="status" className="text-sm font-medium text-brand-sage-strong">
+                    Mensagem preparada — o WhatsApp vai abrir em instantes.
                   </p>
                 )}
                 {submitState === 'error' && (
-                  <p role="alert" className="text-sm text-destructive">
+                  <p role="alert" className="text-sm text-error-terracotta">
                     Não foi possível abrir o WhatsApp. Tente novamente ou entre em contato diretamente.
                   </p>
                 )}
                 {submitState === 'blocked' && (
-                  <p role="alert" className="text-sm text-destructive">
+                  <p role="alert" className="text-sm text-error-terracotta">
                     {blockedMessage}
-                  </p>
-                )}
-                {submitState === 'threat' && (
-                  <p role="alert" className="text-sm text-destructive">
-                    Sua mensagem contém conteúdo inválido. Revise os campos e tente novamente.
                   </p>
                 )}
 
                 <Button
                   type="submit"
                   disabled={isDisabled}
-                  className="btn-whatsapp w-full gap-2 text-brand-ivory focus-visible:ring-offset-card"
+                  className="btn-whatsapp h-12 w-full gap-3 text-sm font-semibold text-brand-ivory focus-visible:ring-offset-card"
                 >
-                  <FaWhatsapp className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <FaWhatsapp className="h-5 w-5 shrink-0" aria-hidden="true" />
                   {form.formState.isSubmitting
                     ? 'Preparando mensagem...'
                     : submitState === 'success'
@@ -210,23 +203,22 @@ export function ContactSection() {
                       : 'Enviar pelo WhatsApp'}
                 </Button>
 
-                <p className="text-center text-xs text-muted-foreground">
-                  Campos marcados com{' '}
-                  <span aria-hidden="true" className="text-destructive">*</span>{' '}
-                  são obrigatórios
+                <p className="text-center text-xs text-muted-foreground/70">
+                  Todos os campos são obrigatórios.
                 </p>
               </form>
             </Form>
           </div>
 
-          {/* Social follow + trust */}
-          <div className="flex flex-col justify-center gap-8">
-            <div>
-              <h3 className="mb-3 text-lg font-semibold text-foreground">
-                Quer me conhecer melhor antes de decidir?
+          {/* Coluna de confiança */}
+          <div className="flex flex-col justify-center gap-10 lg:pl-2">
+            <div className="space-y-3">
+              <h3 className="font-serif text-xl font-medium text-brand-forest">
+                Quer me conhecer antes de decidir?
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Dar o primeiro passo pode parecer difícil. Por isso, você pode me acompanhar nas redes sociais e ver de perto como é o meu trabalho antes de qualquer compromisso.
+                Dar o primeiro passo pode parecer difícil. Por isso, você pode me acompanhar
+                nas redes sociais e ver de perto como é o meu trabalho, antes de qualquer compromisso.
               </p>
             </div>
 
@@ -242,7 +234,6 @@ export function ContactSection() {
                   Instagram
                 </SocialLink>
               )}
-
               {siteConfig.linkedin && (
                 <SocialLink
                   href={siteConfig.linkedin}
@@ -254,7 +245,6 @@ export function ContactSection() {
                   LinkedIn
                 </SocialLink>
               )}
-
               {siteConfig.email && (
                 <SocialLink
                   href={`mailto:${siteConfig.email}`}
@@ -267,15 +257,17 @@ export function ContactSection() {
               )}
             </div>
 
-            <div className="rounded-xl bg-brand-sand/40 p-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
-              <p className="font-medium text-foreground">
-                A primeira conversa é para você me conhecer melhor.
+            <div className="rounded-2xl bg-brand-sand/50 px-6 py-5 ring-1 ring-brand-forest/[0.06]">
+              <p className="mb-2 font-medium text-brand-forest">
+                A primeira conversa é para você me conhecer.
               </p>
-              <p>
-                Não há julgamentos, nem compromissos. É um espaço seguro para você entender se o atendimento faz sentido para o que está vivendo agora.
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Sem julgamentos, sem compromissos. É um espaço seguro para você entender
+                se o atendimento faz sentido para o que está vivendo agora.
               </p>
             </div>
           </div>
+
         </div>
       </PageContainer>
     </section>
