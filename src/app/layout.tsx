@@ -80,8 +80,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
-      <body>
+    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`} style={{ backgroundColor: '#F6F1EB' }}>
+      <body style={{ backgroundColor: '#F6F1EB' }}>
         <div
           className="pointer-events-none fixed inset-0 z-[5] opacity-[0.025]"
           style={{

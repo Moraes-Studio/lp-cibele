@@ -84,8 +84,7 @@ export function HeroSection() {
 
             <h1
               id="hero-heading"
-              className="font-serif text-3xl font-bold leading-tight tracking-tight text-brand-forest motion-safe:animate-fade-up md:text-[3.25rem] lg:text-[4.25rem]"
-              style={{ animationDelay: '150ms' }}
+              className="font-serif text-3xl font-bold leading-tight tracking-tight text-brand-forest motion-safe:animate-rise md:text-[3.25rem] lg:text-[4.25rem]"
             >
               Um espaço seguro para cuidar de você
             </h1>
