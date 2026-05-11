@@ -23,6 +23,15 @@ test.describe('Navegação desktop', () => {
     await expect(page).toHaveURL('/servicos');
   });
 
+  test('header link "Contato" navega para /contato', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'nav desktop oculta em mobile');
+    await page.goto('/');
+    const navigation = page.getByRole('navigation', { name: 'Navegação principal' });
+    await navigation.getByRole('link', { name: 'Contato' }).click();
+    await expect(page).toHaveURL('/contato');
+    await expect(page.getByRole('heading', { name: /entre em contato/i })).toBeVisible();
+  });
+
   test('página 404 mantém header e footer', async ({ page }) => {
     await page.goto('/pagina-inexistente');
     await expect(page.locator('header')).toBeVisible();

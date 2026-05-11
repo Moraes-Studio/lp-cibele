@@ -38,12 +38,12 @@ export function WhatsAppButton({
         rel="noopener noreferrer"
         aria-label="Agendar pelo WhatsApp"
         className={cn(
-          'fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#3a7d5d] text-white shadow-[0_4px_18px_rgba(47,74,63,0.22)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(47,74,63,0.30)] focus:ring-[#3a7d5d]',
+          'fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--whatsapp-green)] text-white shadow-[0_4px_18px_rgba(31,64,52,0.22)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(31,64,52,0.30)] focus:ring-[var(--whatsapp-green)] sm:bottom-6 sm:right-6 sm:h-14 sm:w-14',
           focusRingBase,
           className
         )}
       >
-        <FaWhatsapp className="h-7 w-7" aria-hidden="true" />
+        <FaWhatsapp className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" />
       </Link>
     );
   }
@@ -54,12 +54,12 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-sage',
+        'inline-flex items-center justify-center gap-3 rounded-md bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-brand-forest-soft',
         focusRingBase,
         className
       )}
     >
-      <FaWhatsapp className="h-4 w-4 shrink-0" aria-hidden="true" />
+      <FaWhatsapp className="h-6 w-6 shrink-0" aria-hidden="true" />
       {label}
     </Link>
   );

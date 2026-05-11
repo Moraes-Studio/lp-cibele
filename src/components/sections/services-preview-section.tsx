@@ -8,7 +8,7 @@ export function ServicesPreviewSection() {
   return (
     <section
       aria-labelledby="services-heading"
-      className="bg-brand-ivory py-14 md:py-20"
+      className="bg-brand-sand/40 py-14 md:py-20"
     >
       <PageContainer>
         <div className="space-y-12">

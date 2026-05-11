@@ -3,11 +3,15 @@
 /* ─── CSS variables (brand + shadcn/ui) ─── */
 :root {
   /* brand palette — DS aprovado */
-  --brand-forest: #2f4a3f;
+  --brand-forest: #1F4034;
+  --brand-forest-soft: #2B4F43;
+  --brand-forest-light: #35584C;
   --brand-sage: #6d846f;
+  --brand-sage-strong: #4a6354; /* WCAG AA ≥5.4:1 on white/ivory — use for small text */
   --brand-leaf: #a7b89a;
   --brand-sand: #f2e8da;
-  --brand-ivory: #faf7f2;
+  --brand-ivory: #F6F1EB;
+  --brand-rose: #D8C2BA;
 
   /* card accent colors — DS §11 */
   --card-psicoterapia: #d4a5a5;
@@ -18,6 +22,10 @@
   /* shadows — DS §6 */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  /* third-party brand colors */
+  --whatsapp-green: #3a7d5d;
+  --linkedin-blue: #0a66c2;
 
   /* shadcn/ui semantic tokens mapped to brand */
   --background: var(--brand-ivory);
@@ -44,8 +52,8 @@
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: rgba(47, 74, 63, 0.16);
-  --input: rgba(47, 74, 63, 0.16);
+  --border: rgba(31, 64, 52, 0.16);
+  --input: rgba(31, 64, 52, 0.16);
   --ring: var(--brand-sage);
 
   --radius: 0.625rem;
@@ -55,10 +63,14 @@
 @theme inline {
   /* expose brand colors as Tailwind utilities */
   --color-brand-forest: var(--brand-forest);
+  --color-brand-forest-soft: var(--brand-forest-soft);
+  --color-brand-forest-light: var(--brand-forest-light);
   --color-brand-sage: var(--brand-sage);
+  --color-brand-sage-strong: var(--brand-sage-strong);
   --color-brand-leaf: var(--brand-leaf);
   --color-brand-sand: var(--brand-sand);
   --color-brand-ivory: var(--brand-ivory);
+  --color-brand-rose: var(--brand-rose);
 
   /* card accent colors */
   --color-card-psicoterapia: var(--card-psicoterapia);
@@ -91,20 +103,77 @@
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
 
+  /* third-party brand colors */
+  --color-whatsapp: var(--whatsapp-green);
+  --color-linkedin: var(--linkedin-blue);
+
   /* border radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* error — terracotta elegante (WCAG AA ~5.8:1 on white) */
+  --color-error-terracotta: #9B4E47;
+  --color-error-terracotta-ring: rgba(155, 78, 71, 0.12);
+
+  /* animations */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s ease-out both;
+  --animate-rise: rise 0.55s ease-out both;
+  --animate-message-appear: message-appear 0.28s ease-out both;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes rise {
+  from { transform: translateY(14px); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes message-appear {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Base styles ─── */
+html {
+  background-color: var(--brand-ivory);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans, Arial, sans-serif);
   -webkit-font-smoothing: antialiased;
   line-height: 1.8;
+}
+
+/* ─── Text selection — brand colors ─── */
+::selection {
+  background-color: var(--brand-leaf);
+  color: var(--brand-forest);
+}
+
+/* ─── Brand gradient — dark sections (CTA: ↘, Footer: ↙ — efeito transversal em conjunto) ─── */
+.bg-brand-gradient {
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 48%),
+    linear-gradient(135deg, #152b23 0%, #1F4034 40%, #2B5244 72%, #3d7056 100%);
+}
+
+.bg-brand-gradient-footer {
+  background:
+    linear-gradient(25deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 52%),
+    linear-gradient(315deg, #152b23 0%, #1F4034 40%, #2B5244 72%, #3d7056 100%);
 }
 
 /* ─── Secondary hero button — hover premium ─── */
@@ -135,6 +204,31 @@ body {
     transition: none;
   }
   .btn-hero-secondary:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ─── WhatsApp CTA button — gradient + lift animation ─── */
+.btn-whatsapp {
+  background: linear-gradient(135deg, var(--brand-forest) 0%, var(--brand-sage) 100%);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    opacity 150ms ease;
+}
+.btn-whatsapp:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(47, 74, 63, 0.3);
+}
+.btn-whatsapp:active:not(:disabled) {
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-whatsapp {
+    transition: opacity 150ms ease;
+  }
+  .btn-whatsapp:hover:not(:disabled) {
     transform: none;
     box-shadow: none;
   }
