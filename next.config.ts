@@ -26,6 +26,9 @@ const SECURITY_HEADERS = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
   experimental: {
     optimizePackageImports: ['react-icons'],
   },
