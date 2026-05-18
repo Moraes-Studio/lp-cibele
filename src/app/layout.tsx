@@ -43,20 +43,11 @@ export const metadata: Metadata = {
     siteName: `${siteConfig.name} Psicologia`,
     title: `${siteConfig.name} | ${siteConfig.role}`,
     description: siteConfig.description,
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} Psicologia Clínica`,
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} | ${siteConfig.role}`,
     description: siteConfig.description,
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -68,11 +59,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
   },
 };
 

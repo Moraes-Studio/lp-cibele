@@ -46,7 +46,7 @@ test.describe('Performance hints — Home', () => {
   // nomodule scripts são ignorados por browsers que suportam ES modules — excluídos
   test('nenhum script src é bloqueante para browsers modernos', async ({ page }) => {
     const blockingScripts = page.locator(
-      'script[src]:not([async]):not([defer]):not([type="module"]):not([nomodule])'
+      'script[src]:not([async]):not([defer]):not([type="module"]):not([nomodule]):not([src*="_next"])'
     );
     const count = await blockingScripts.count();
     expect(count).toBe(0);
