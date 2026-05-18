@@ -43,6 +43,7 @@ export function ContactSection() {
           title="Entre em contato"
           description="Preencha o formulário e sua mensagem chegará diretamente no meu WhatsApp. Respondo com cuidado e atenção."
           align="center"
+          level={1}
           accent
         />
 
