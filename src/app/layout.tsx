@@ -1,5 +1,5 @@
 import '@/config/env';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { SkipLink } from '@/components/shared/skip-link';
@@ -19,6 +19,10 @@ const playfair = Playfair_Display({
   display: 'optional',
   preload: true,
 });
+
+export const viewport: Viewport = {
+  colorScheme: 'light',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

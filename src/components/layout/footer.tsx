@@ -61,20 +61,22 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-4">
-            {whatsappUrl && (
-              <FooterSocialLink href={whatsappUrl} label="WhatsApp" icon={FaWhatsapp} />
-            )}
-            {siteConfig.instagram && (
-              <FooterSocialLink href={siteConfig.instagram} label="Instagram" icon={FaInstagram} />
-            )}
-            {siteConfig.linkedin && (
-              <FooterSocialLink href={siteConfig.linkedin} label="LinkedIn" icon={FaLinkedin} />
-            )}
-            {siteConfig.facebook && (
-              <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
-            )}
-          </div>
+          {(whatsappUrl || siteConfig.instagram || siteConfig.linkedin || siteConfig.facebook) && (
+            <div className="flex items-center gap-4">
+              {whatsappUrl && (
+                <FooterSocialLink href={whatsappUrl} label="WhatsApp" icon={FaWhatsapp} />
+              )}
+              {siteConfig.instagram && (
+                <FooterSocialLink href={siteConfig.instagram} label="Instagram" icon={FaInstagram} />
+              )}
+              {siteConfig.linkedin && (
+                <FooterSocialLink href={siteConfig.linkedin} label="LinkedIn" icon={FaLinkedin} />
+              )}
+              {siteConfig.facebook && (
+                <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
+              )}
+            </div>
+          )}
         </div>
 
         <div className="border-t border-brand-sage/30 py-3 text-xs text-brand-sand">

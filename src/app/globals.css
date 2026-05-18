@@ -147,6 +147,7 @@
 /* ─── Base styles ─── */
 html {
   background-color: var(--brand-ivory);
+  color-scheme: light;
 }
 
 body {
