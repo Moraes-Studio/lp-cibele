@@ -85,14 +85,7 @@ export function Footer() {
                 Política de Privacidade
               </Link>
               <span aria-hidden="true" className="opacity-40">·</span>
-              <a
-                href="https://moraes.studio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm"
-              >
-                Desenvolvido por moraesStudio
-              </a>
+              <span>Desenvolvido por moraesStudio</span>
             </div>
           </div>
         </div>
