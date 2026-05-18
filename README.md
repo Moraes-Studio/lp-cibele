@@ -31,6 +31,10 @@ src/
 │   ├── page.tsx          # Home (/)
 │   ├── servicos/         # Serviços (/servicos)
 │   ├── contato/          # Contato (/contato)
+│   ├── privacidade/      # Política de privacidade (/privacidade)
+│   ├── opengraph-image.tsx  # OG image gerada dinamicamente (1200×630)
+│   ├── icon.svg          # Favicon
+│   ├── apple-icon.tsx    # Apple touch icon (180×180)
 │   ├── robots.ts
 │   └── sitemap.ts
 ├── components/
@@ -64,8 +68,8 @@ Crie um arquivo `.env.local` na raiz com as seguintes variáveis:
 # Público
 NEXT_PUBLIC_SITE_URL=https://cibelepsicologia.com.br
 NEXT_PUBLIC_WHATSAPP_NUMBER=5511900000000
-NEXT_PUBLIC_INSTAGRAM_URL=https://instagram.com/cibelerosa.psi
-NEXT_PUBLIC_LINKEDIN_URL=https://linkedin.com/in/cibelerosapsicologa
+NEXT_PUBLIC_INSTAGRAM_URL=https://www.instagram.com/cibelerosapsicologia/
+NEXT_PUBLIC_LINKEDIN_URL=https://www.linkedin.com/in/cibelerosapsicologa/
 NEXT_PUBLIC_CRP=CRP 06/000000
 NEXT_PUBLIC_EMAIL=contato@cibelepsicologia.com.br
 ```
