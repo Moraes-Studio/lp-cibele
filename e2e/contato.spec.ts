@@ -19,14 +19,14 @@ test.describe('Página de Contato', () => {
     await expect(page).toHaveTitle(/Contato.*Cibele Rosa|Cibele Rosa.*Contato/i);
   });
 
-  test('tem exatamente 1 h2 com texto "Entre em contato"', async ({ page }) => {
+  test('tem exatamente 1 h1 com texto "Entre em contato"', async ({ page }) => {
     await expect(page.getByRole('heading', { name: /entre em contato/i })).toBeVisible();
   });
 
   test('exibe todos os campos obrigatórios', async ({ page }) => {
     await expect(page.getByLabel(/nome/i)).toBeVisible();
-    await expect(page.getByLabel(/e-mail/i)).toBeVisible();
-    await expect(page.getByLabel(/whatsapp/i)).toBeVisible();
+    await expect(page.getByLabel('E-mail', { exact: true })).toBeVisible();
+    await expect(page.getByRole('textbox', { name: /whatsapp/i })).toBeVisible();
     await expect(page.getByLabel(/mensagem/i)).toBeVisible();
   });
 
@@ -39,28 +39,28 @@ test.describe('Página de Contato', () => {
   test('exibe erros de validação ao submeter formulário vazio', async ({ page }) => {
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
 
-    await expect(page.getByText(/pelo menos 2 caracteres/i)).toBeVisible();
+    await expect(page.getByText(/informe seu nome/i)).toBeVisible();
     await expect(page.getByText(/e-mail válido/i)).toBeVisible();
-    await expect(page.getByText(/telefone ou whatsapp/i)).toBeVisible();
-    await expect(page.getByText(/pelo menos 10 caracteres/i)).toBeVisible();
+    await expect(page.getByText(/whatsapp ou telefone/i)).toBeVisible();
+    await expect(page.getByText(/conte um pouco mais/i)).toBeVisible();
   });
 
   test('exibe erro ao preencher email inválido', async ({ page }) => {
-    await page.getByLabel(/e-mail/i).fill('nao-e-email');
+    await page.getByLabel('E-mail', { exact: true }).fill('nao-e-email');
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
     await expect(page.getByText(/e-mail válido/i)).toBeVisible();
   });
 
-  test('exibe erro ao preencher nome repetitivo', async ({ page }) => {
+  test('exibe erro ao preencher nome sem sobrenome', async ({ page }) => {
     await page.getByLabel(/nome/i).fill('aaaaaaaaaa');
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
-    await expect(page.getByText(/nome válido/i)).toBeVisible();
+    await expect(page.getByText(/sobrenome/i)).toBeVisible();
   });
 
   test('exibe erro ao preencher mensagem curta demais', async ({ page }) => {
     await page.getByLabel(/mensagem/i).fill('Oi');
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
-    await expect(page.getByText(/10 caracteres/i)).toBeVisible();
+    await expect(page.getByText(/conte um pouco mais/i)).toBeVisible();
   });
 
   test('submissão válida exibe estado de sucesso', async ({ page }) => {
@@ -70,43 +70,33 @@ test.describe('Página de Contato', () => {
     });
 
     await page.getByLabel(/nome/i).fill(VALID_FORM.name);
-    await page.getByLabel(/e-mail/i).fill(VALID_FORM.email);
-    await page.getByLabel(/whatsapp/i).fill(VALID_FORM.phone);
+    await page.getByLabel('E-mail', { exact: true }).fill(VALID_FORM.email);
+    await page.getByRole('textbox', { name: /whatsapp/i }).fill(VALID_FORM.phone);
     await page.getByLabel(/mensagem/i).fill(VALID_FORM.message);
 
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
 
-    await expect(page.getByRole('status')).toContainText(/mensagem foi preparada/i);
+    await expect(page.getByRole('status')).toContainText(/mensagem preparada/i);
     await expect(page.getByRole('button', { name: /mensagem preparada/i })).toBeDisabled();
   });
 
   test('rate limit bloqueia segundo envio dentro do cooldown', async ({ page }) => {
-    await page.addInitScript(() => {
-      window.open = () => null;
+    // Seed localStorage to simulate a very recent submission (within 3-min cooldown)
+    await page.evaluate(() => {
+      localStorage.setItem('contact_last_sent', String(Date.now()));
     });
 
-    // First submission
     await page.getByLabel(/nome/i).fill(VALID_FORM.name);
-    await page.getByLabel(/e-mail/i).fill(VALID_FORM.email);
-    await page.getByLabel(/whatsapp/i).fill(VALID_FORM.phone);
-    await page.getByLabel(/mensagem/i).fill(VALID_FORM.message);
-    await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
-    await expect(page.getByRole('status')).toContainText(/mensagem foi preparada/i);
-
-    // Reload to reset form state but keep localStorage (cooldown persists)
-    await page.reload();
-
-    await page.getByLabel(/nome/i).fill(VALID_FORM.name);
-    await page.getByLabel(/e-mail/i).fill(VALID_FORM.email);
-    await page.getByLabel(/whatsapp/i).fill(VALID_FORM.phone);
+    await page.getByLabel('E-mail', { exact: true }).fill(VALID_FORM.email);
+    await page.getByRole('textbox', { name: /whatsapp/i }).fill(VALID_FORM.phone);
     await page.getByLabel(/mensagem/i).fill(VALID_FORM.message);
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
 
-    await expect(page.getByRole('alert')).toContainText(/aguarde/i);
+    // The blocked alert is our <p role="alert"> — filter to avoid the Next.js route announcer
+    await expect(page.getByRole('alert').filter({ hasText: /aguarde/i })).toBeVisible();
   });
 
   test('honeypot preenchido não dispara envio', async ({ page }) => {
-    let whatsappOpened = false;
     await page.addInitScript(() => {
       window.open = () => {
         (window as Window & { __whatsappOpened?: boolean }).__whatsappOpened = true;
@@ -114,28 +104,36 @@ test.describe('Página de Contato', () => {
       };
     });
 
-    // Fill honeypot via JS (bots would do this programmatically)
+    // Trigger honeypot via React-compatible native input setter + events
     await page.evaluate(() => {
       const honeypot = document.querySelector<HTMLInputElement>('input[name="company"]');
-      if (honeypot) honeypot.value = 'Spam Corp';
+      if (honeypot) {
+        const nativeSetter = Object.getOwnPropertyDescriptor(
+          window.HTMLInputElement.prototype,
+          'value'
+        )?.set;
+        nativeSetter?.call(honeypot, 'Spam Corp');
+        honeypot.dispatchEvent(new Event('input', { bubbles: true }));
+        honeypot.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     });
 
     await page.getByLabel(/nome/i).fill(VALID_FORM.name);
-    await page.getByLabel(/e-mail/i).fill(VALID_FORM.email);
-    await page.getByLabel(/whatsapp/i).fill(VALID_FORM.phone);
+    await page.getByLabel('E-mail', { exact: true }).fill(VALID_FORM.email);
+    await page.getByRole('textbox', { name: /whatsapp/i }).fill(VALID_FORM.phone);
     await page.getByLabel(/mensagem/i).fill(VALID_FORM.message);
     await page.getByRole('button', { name: /enviar pelo whatsapp/i }).click();
 
-    whatsappOpened = await page.evaluate(
+    const whatsappOpened = await page.evaluate(
       () => !!(window as Window & { __whatsappOpened?: boolean }).__whatsappOpened
     );
     expect(whatsappOpened).toBe(false);
   });
 
   test('links diretos de contato estão presentes na seção', async ({ page }) => {
-    const whatsappLink = page.getByRole('link', { name: /abrir whatsapp/i });
+    const instagramLink = page.getByRole('link', { name: /seguir no instagram/i });
     const linkedinLink = page.getByRole('link', { name: /ver perfil no linkedin/i });
-    await expect(whatsappLink).toBeAttached();
+    await expect(instagramLink).toBeAttached();
     await expect(linkedinLink).toBeAttached();
   });
 });

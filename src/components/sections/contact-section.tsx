@@ -214,9 +214,9 @@ export function ContactSection() {
           {/* Coluna de confiança */}
           <div className="flex flex-col justify-center gap-10 lg:pl-2">
             <div className="space-y-3">
-              <h3 className="font-serif text-xl font-medium text-brand-forest">
+              <h2 className="font-serif text-xl font-medium text-brand-forest">
                 Quer me conhecer antes de decidir?
-              </h3>
+              </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 Dar o primeiro passo pode parecer difícil. Por isso, você pode me acompanhar
                 nas redes sociais e ver de perto como é o meu trabalho, antes de qualquer compromisso.
