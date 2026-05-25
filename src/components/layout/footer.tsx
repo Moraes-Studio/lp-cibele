@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { IconType } from 'react-icons';
-import { FaWhatsapp, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { PageContainer } from '@/components/shared/page-container';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { siteConfig } from '@/config/site';
@@ -61,7 +61,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          {(whatsappUrl || siteConfig.instagram || siteConfig.linkedin || siteConfig.facebook) && (
+          {(whatsappUrl || siteConfig.instagram || siteConfig.linkedin) && (
             <div className="flex items-center gap-4">
               {whatsappUrl && (
                 <FooterSocialLink href={whatsappUrl} label="WhatsApp" icon={FaWhatsapp} />
@@ -72,9 +72,7 @@ export function Footer() {
               {siteConfig.linkedin && (
                 <FooterSocialLink href={siteConfig.linkedin} label="LinkedIn" icon={FaLinkedin} />
               )}
-              {siteConfig.facebook && (
-                <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
-              )}
+
             </div>
           )}
         </div>
