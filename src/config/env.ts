@@ -24,7 +24,6 @@ const environmentSchema = z.object({
   NEXT_PUBLIC_WHATSAPP_NUMBER: optionalStringField,
   NEXT_PUBLIC_INSTAGRAM_URL: optionalUrlField,
   NEXT_PUBLIC_LINKEDIN_URL: optionalUrlField,
-  NEXT_PUBLIC_FACEBOOK_URL: optionalUrlField,
   NEXT_PUBLIC_CRP: optionalStringField,
   NEXT_PUBLIC_EMAIL: optionalEmailField,
 });
