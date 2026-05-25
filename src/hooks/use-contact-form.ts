@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
+import { sanitizeField } from '@/lib/sanitize';
 import {
   checkContactRateLimit,
   recordContactSent,
@@ -62,6 +63,13 @@ export function useContactForm() {
     const whatsAppUrl = buildWhatsAppUrl(siteConfig.phone, whatsAppMessage);
 
     if (!whatsAppUrl) {
+      setSubmitState('error');
+      return;
+    }
+
+    const fieldsToSanitize = [data.name, data.email, data.phone, data.message];
+    const hasThreat = fieldsToSanitize.some((v) => !sanitizeField(v).ok);
+    if (hasThreat) {
       setSubmitState('error');
       return;
     }

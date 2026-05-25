@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { IconType } from 'react-icons';
-import { FaWhatsapp, FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { PageContainer } from '@/components/shared/page-container';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { siteConfig } from '@/config/site';
@@ -61,7 +61,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          {(whatsappUrl || siteConfig.instagram || siteConfig.linkedin || siteConfig.facebook) && (
+          {(whatsappUrl || siteConfig.instagram || siteConfig.linkedin) && (
             <div className="flex items-center gap-4">
               {whatsappUrl && (
                 <FooterSocialLink href={whatsappUrl} label="WhatsApp" icon={FaWhatsapp} />
@@ -72,9 +72,7 @@ export function Footer() {
               {siteConfig.linkedin && (
                 <FooterSocialLink href={siteConfig.linkedin} label="LinkedIn" icon={FaLinkedin} />
               )}
-              {siteConfig.facebook && (
-                <FooterSocialLink href={siteConfig.facebook} label="Facebook" icon={FaFacebook} />
-              )}
+
             </div>
           )}
         </div>
@@ -82,9 +80,13 @@ export function Footer() {
         <div className="border-t border-brand-sage/30 py-3 text-xs text-brand-sand">
           <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-between">
             <p>&copy; {year} {siteConfig.name}. Todos os direitos reservados.</p>
-            <Link href="/privacidade" className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm">
-              Política de Privacidade
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/privacidade" className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm">
+                Política de Privacidade
+              </Link>
+              <span aria-hidden="true" className="opacity-40">·</span>
+              <span>Desenvolvido por moraesStudio</span>
+            </div>
           </div>
         </div>
       </PageContainer>

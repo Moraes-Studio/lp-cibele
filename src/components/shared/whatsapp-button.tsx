@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa';
 import { cn, focusRingBase } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
@@ -32,7 +31,7 @@ export function WhatsAppButton({
 
   if (variant === 'floating') {
     return (
-      <Link
+      <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
@@ -44,12 +43,12 @@ export function WhatsAppButton({
         )}
       >
         <FaWhatsapp className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" />
-      </Link>
+      </a>
     );
   }
 
   return (
-    <Link
+    <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
@@ -61,6 +60,6 @@ export function WhatsAppButton({
     >
       <FaWhatsapp className="h-6 w-6 shrink-0" aria-hidden="true" />
       {label}
-    </Link>
+    </a>
   );
 }

@@ -15,9 +15,10 @@ test.describe('Página Serviços', () => {
     await expect(h1s.first()).toContainText('Serviços oferecidos');
   });
 
-  test('exibe os 4 cards de serviço', async ({ page }) => {
-    const cards = page.locator('section[aria-labelledby="servicos-cards-heading"] li');
-    await expect(cards).toHaveCount(4);
+  test('exibe as 4 seções de serviço', async ({ page }) => {
+    // ServiceEditorialSection renders section > aside + article — unique to the 4 service sections
+    const serviceSections = page.locator('section:has(aside):has(article)');
+    await expect(serviceSections).toHaveCount(4);
   });
 
   test('seção de processo está presente', async ({ page }) => {
