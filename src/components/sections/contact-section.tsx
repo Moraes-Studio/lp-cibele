@@ -43,6 +43,7 @@ export function ContactSection() {
           title="Entre em contato"
           description="Preencha o formulário e sua mensagem chegará diretamente no meu WhatsApp. Respondo com cuidado e atenção."
           align="center"
+          level={1}
           accent
         />
 
@@ -71,7 +72,7 @@ export function ContactSection() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground">
                         Nome completo
                       </FormLabel>
                       <FormControl>
@@ -93,7 +94,7 @@ export function ContactSection() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground">
                         E-mail
                       </FormLabel>
                       <FormControl>
@@ -122,7 +123,7 @@ export function ContactSection() {
 
                     return (
                       <FormItem>
-                        <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                        <FormLabel className="text-sm font-medium tracking-wide text-foreground">
                           WhatsApp / Telefone
                         </FormLabel>
                         <div className="relative">
@@ -155,7 +156,7 @@ export function ContactSection() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium tracking-wide text-foreground/80">
+                      <FormLabel className="text-sm font-medium tracking-wide text-foreground">
                         Mensagem
                       </FormLabel>
                       <FormControl>
@@ -203,7 +204,7 @@ export function ContactSection() {
                       : 'Enviar pelo WhatsApp'}
                 </Button>
 
-                <p className="text-center text-xs text-muted-foreground/70">
+                <p className="text-center text-xs text-muted-foreground">
                   Todos os campos são obrigatórios.
                 </p>
               </form>
@@ -213,9 +214,9 @@ export function ContactSection() {
           {/* Coluna de confiança */}
           <div className="flex flex-col justify-center gap-10 lg:pl-2">
             <div className="space-y-3">
-              <h3 className="font-serif text-xl font-medium text-brand-forest">
+              <h2 className="font-serif text-xl font-medium text-brand-forest">
                 Quer me conhecer antes de decidir?
-              </h3>
+              </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 Dar o primeiro passo pode parecer difícil. Por isso, você pode me acompanhar
                 nas redes sociais e ver de perto como é o meu trabalho, antes de qualquer compromisso.

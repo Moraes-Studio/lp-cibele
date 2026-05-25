@@ -80,9 +80,13 @@ export function Footer() {
         <div className="border-t border-brand-sage/30 py-3 text-xs text-brand-sand">
           <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-between">
             <p>&copy; {year} {siteConfig.name}. Todos os direitos reservados.</p>
-            <Link href="/privacidade" className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm">
-              Política de Privacidade
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/privacidade" className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm">
+                Política de Privacidade
+              </Link>
+              <span aria-hidden="true" className="opacity-40">·</span>
+              <span>Desenvolvido por moraesStudio</span>
+            </div>
           </div>
         </div>
       </PageContainer>
