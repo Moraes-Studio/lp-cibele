@@ -5,12 +5,14 @@ import { ServiceEditorialSection } from '@/components/sections/service-editorial
 import { ProcessSection } from '@/components/sections/process-section';
 import { CtaSection } from '@/components/sections/cta-section';
 import { WhatsAppButton } from '@/components/shared/whatsapp-button';
+import { JsonLd } from '@/components/shared/json-ld';
 import { services } from '@/constants/services';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Serviços | Psicoterapia para Adultos em São Paulo e Online',
   description:
-    'Psicoterapia individual para adultos em São Paulo. Terapia para ansiedade, burnout, relacionamentos, autoestima e transições de vida. Atendimento presencial e online. CRP 06/45117.',
+    'Psicoterapia para adultos em São Paulo e online. Ansiedade, burnout, relacionamentos e transições de vida. Atendimento humanizado. CRP 06/45117.',
   keywords: [
     'psicoterapia individual adultos São Paulo',
     'terapia para ansiedade São Paulo',
@@ -32,9 +34,37 @@ export const metadata: Metadata = {
   },
 };
 
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Psicoterapia',
+  provider: {
+    '@type': 'Person',
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'São Paulo' },
+    { '@type': 'Country', name: 'Brasil' },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços de Psicologia Clínica',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.title,
+        description: s.description,
+      },
+    })),
+  },
+};
+
 export default function ServicosPage() {
   return (
     <>
+      <JsonLd data={servicesSchema} />
       <section
         aria-labelledby="servicos-heading"
         className="bg-brand-ivory py-14 md:py-24"
