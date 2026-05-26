@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ContactSection } from '@/components/sections/contact-section';
 
 export const metadata: Metadata = {
-  title: 'Agendar Consulta | Cibele Rosa Psicóloga São Paulo',
+  title: 'Agendar Consulta — Psicóloga em São Paulo',
   description:
     'Agende sua conversa com a psicóloga Cibele Rosa. Atendimento presencial em São Paulo e online. Resposta via WhatsApp. CRP 06/45117.',
   keywords: [
