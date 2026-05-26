@@ -5,6 +5,7 @@ import './globals.css';
 import { SkipLink } from '@/components/shared/skip-link';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { JsonLd } from '@/components/shared/json-ld';
 import { siteConfig } from '@/config/site';
 
 const inter = Inter({
@@ -66,6 +67,31 @@ export const metadata: Metadata = {
   },
 };
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: 'Psicóloga Clínica',
+  description: siteConfig.description,
+  url: siteConfig.url,
+  ...(siteConfig.email && { email: siteConfig.email }),
+  ...(siteConfig.phone && {
+    telephone: `+${siteConfig.phone}`,
+  }),
+  ...(siteConfig.crp && {
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'license',
+      name: siteConfig.crp,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'Conselho Regional de Psicologia de São Paulo (CRP-SP)',
+      },
+    },
+  }),
+  sameAs: [siteConfig.instagram, siteConfig.linkedin].filter(Boolean),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -80,6 +106,7 @@ export default function RootLayout({
           }}
           aria-hidden="true"
         />
+        <JsonLd data={personSchema} />
         <SkipLink />
         <Header />
         <main id="main-content" tabIndex={-1}>
