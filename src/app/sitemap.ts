@@ -4,6 +4,7 @@ import { siteConfig } from '@/config/site'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url
 
+  // Atualizar lastModified manualmente a cada deploy com alterações de conteúdo
   return [
     {
       url: baseUrl,
