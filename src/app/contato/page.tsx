@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ContactSection } from '@/components/sections/contact-section';
+import { ContatoViewTracker } from '@/components/shared/contato-view-tracker';
 
 export const metadata: Metadata = {
   title: 'Agendar Consulta — Psicóloga em São Paulo',
@@ -21,5 +22,10 @@ export const metadata: Metadata = {
 };
 
 export default function ContatoPage() {
-  return <ContactSection />;
+  return (
+    <>
+      <ContatoViewTracker />
+      <ContactSection />
+    </>
+  );
 }
