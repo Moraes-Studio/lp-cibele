@@ -67,6 +67,27 @@ describe('checkContactRateLimit', () => {
   });
 });
 
+describe('checkContactRateLimit — boundary and storage edge cases', () => {
+  it('allows when elapsed is exactly equal to COOLDOWN_MS (boundary)', () => {
+    localStorage.setItem(STORAGE_KEY, String(Date.now() - COOLDOWN_MS));
+    const result = checkContactRateLimit();
+    expect(result.allowed).toBe(true);
+  });
+
+  it('allows when localStorage.getItem throws (unavailable storage)', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementationOnce(() => {
+      throw new Error('storage unavailable');
+    });
+    expect(() => checkContactRateLimit()).not.toThrow();
+    expect(checkContactRateLimit().allowed).toBe(true);
+  });
+
+  it('blocks when 1 ms before cooldown expires (still within window)', () => {
+    localStorage.setItem(STORAGE_KEY, String(Date.now() - COOLDOWN_MS + 1));
+    expect(checkContactRateLimit().allowed).toBe(false);
+  });
+});
+
 describe('recordContactSent', () => {
   it('writes current timestamp to localStorage', () => {
     const before = Date.now();
@@ -100,6 +121,21 @@ describe('formatCooldownMessage', () => {
       const message = formatCooldownMessage(remainingMs);
       expect(message).toMatch(expected);
     });
+  });
+
+  it('handles 0ms gracefully (0 seconds)', () => {
+    const message = formatCooldownMessage(0);
+    expect(message).toMatch(/0 segundos/);
+  });
+
+  it('handles 1ms — rounds up to 1 second', () => {
+    const message = formatCooldownMessage(1);
+    expect(message).toMatch(/1 segundos/);
+  });
+
+  it('handles 59999ms — rounds up to 60 seconds → 1 minuto', () => {
+    const message = formatCooldownMessage(59_999);
+    expect(message).toMatch(/1 minuto\b/);
   });
 
   it('uses singular "minuto" for exactly 1 minute', () => {
