@@ -17,8 +17,8 @@ export default async function OGImage() {
         r.arrayBuffer(),
       ),
     ]);
-  } catch {
-    // fonts carregam no build — fallback para Noto Sans do Satori
+  } catch (err) {
+    console.warn('[og-image] font fetch failed, using Satori fallback:', err);
   }
 
   const fonts = [

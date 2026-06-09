@@ -10,7 +10,7 @@ import { services } from '@/constants/services';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Serviços | Psicoterapia para Adultos em São Paulo e Online',
+  title: 'Psicoterapia para Adultos em São Paulo e Online',
   description:
     'Psicoterapia para adultos em São Paulo e online. Ansiedade, burnout, relacionamentos e transições de vida. Atendimento humanizado. CRP 06/45117.',
   keywords: [
