@@ -129,7 +129,6 @@ export function HeroSection() {
               width={560}
               height={560}
               priority
-              fetchPriority="high"
               sizes="(max-width: 1023px) 480px, 704px"
               className="relative z-10 w-full max-w-[30rem] motion-safe:animate-float lg:max-w-[44rem] [filter:contrast(1.15)_brightness(0.93)_sepia(0.12)_saturate(1.05)]"
             />

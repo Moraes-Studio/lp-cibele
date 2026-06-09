@@ -1,15 +1,31 @@
 import type { Metadata } from 'next';
 import { ContactSection } from '@/components/sections/contact-section';
+import { ContatoViewTracker } from '@/components/shared/contato-view-tracker';
 
 export const metadata: Metadata = {
-  title: 'Contato',
+  title: 'Agendar Consulta — Psicóloga em São Paulo',
   description:
-    'Entre em contato com a Cibele Rosa para agendar uma conversa inicial sobre atendimento psicológico para adultos.',
+    'Agende sua conversa com a psicóloga Cibele Rosa. Atendimento presencial em São Paulo e online. Resposta via WhatsApp. CRP 06/45117.',
+  keywords: [
+    'agendar consulta psicóloga São Paulo',
+    'marcar terapia SP',
+    'primeira consulta psicóloga online',
+    'psicóloga presencial e online São Paulo',
+    'contato psicóloga SP',
+    'quanto custa sessão de terapia SP',
+    'psicóloga WhatsApp São Paulo',
+    'agendar psicoterapia adultos',
+  ],
   alternates: {
     canonical: '/contato',
   },
 };
 
 export default function ContatoPage() {
-  return <ContactSection />;
+  return (
+    <>
+      <ContatoViewTracker />
+      <ContactSection />
+    </>
+  );
 }

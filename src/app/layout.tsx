@@ -1,11 +1,14 @@
 import '@/config/env';
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { SkipLink } from '@/components/shared/skip-link';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { JsonLd } from '@/components/shared/json-ld';
 import { siteConfig } from '@/config/site';
+import { GADS_ID } from '@/lib/gtag';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,11 +35,21 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    'psicologia clínica',
+    'psicóloga em São Paulo',
+    'psicóloga online',
     'psicoterapia para adultos',
     'terapia online',
-    'saúde mental',
+    'psicologia clínica São Paulo',
+    'terapia para ansiedade São Paulo',
+    'saúde emocional',
     'autoconhecimento',
+    'terapia para transições de vida',
+    'psicóloga presencial e online SP',
+    'agendar consulta psicóloga',
+    'saúde mental São Paulo',
+    'psicoterapia adultos SP',
+    'equilíbrio emocional',
+    'fortalecimento emocional',
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
@@ -66,6 +79,50 @@ export const metadata: Metadata = {
   },
 };
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: 'Psicóloga Clínica',
+  description: siteConfig.description,
+  url: siteConfig.url,
+  ...(siteConfig.email && { email: siteConfig.email }),
+  ...(siteConfig.phone && { telephone: `+${siteConfig.phone}` }),
+  areaServed: [
+    { '@type': 'City', name: 'São Paulo', containedIn: 'Brasil' },
+    { '@type': 'Country', name: 'Brasil' },
+  ],
+  availableChannel: {
+    '@type': 'ServiceChannel',
+    serviceType: 'Atendimento online e presencial',
+    availableLanguage: { '@type': 'Language', name: 'Portuguese' },
+  },
+  knowsAbout: [
+    'Psicoterapia para adultos',
+    'Saúde emocional',
+    'Ansiedade',
+    'Autoconhecimento',
+    'Transições de vida',
+    'Relacionamentos',
+    'Depressão',
+    'Burnout',
+    'Desenvolvimento pessoal',
+    'Fortalecimento emocional',
+  ],
+  ...(siteConfig.crp && {
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'license',
+      name: siteConfig.crp,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'Conselho Regional de Psicologia de São Paulo (CRP-SP)',
+      },
+    },
+  }),
+  sameAs: [siteConfig.instagram, siteConfig.linkedin].filter(Boolean),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -80,6 +137,18 @@ export default function RootLayout({
           }}
           aria-hidden="true"
         />
+        {/^AW-\d+$/.test(GADS_ID) && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-ads-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(GADS_ID)});`}
+            </Script>
+          </>
+        )}
+        <JsonLd data={personSchema} />
         <SkipLink />
         <Header />
         <main id="main-content" tabIndex={-1}>

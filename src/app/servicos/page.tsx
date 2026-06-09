@@ -5,32 +5,66 @@ import { ServiceEditorialSection } from '@/components/sections/service-editorial
 import { ProcessSection } from '@/components/sections/process-section';
 import { CtaSection } from '@/components/sections/cta-section';
 import { WhatsAppButton } from '@/components/shared/whatsapp-button';
+import { JsonLd } from '@/components/shared/json-ld';
 import { services } from '@/constants/services';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Serviços',
+  title: 'Psicoterapia para Adultos em São Paulo e Online',
   description:
-    'Psicoterapia para adultos, suporte em transições de vida, relacionamentos e saúde emocional. Acompanhamento psicológico humanizado, com escuta, acolhimento e equilíbrio emocional. Atendimento presencial e online.',
+    'Psicoterapia para adultos em São Paulo e online. Ansiedade, burnout, relacionamentos e transições de vida. Atendimento humanizado. CRP 06/45117.',
   keywords: [
-    'psicoterapia para adultos',
-    'saúde emocional',
-    'transições de vida',
-    'relacionamentos',
-    'ansiedade',
-    'autoconhecimento',
-    'equilíbrio emocional',
-    'acompanhamento psicológico',
-    'terapia online',
-    'psicóloga',
+    'psicoterapia individual adultos São Paulo',
+    'terapia para ansiedade São Paulo',
+    'terapia para burnout SP',
+    'psicóloga para autoestima São Paulo',
+    'terapia para relacionamentos adultos',
+    'terapia para transições de vida SP',
+    'psicóloga para depressão São Paulo',
+    'terapia para autoconhecimento',
+    'saúde emocional psicoterapia',
+    'equilíbrio emocional terapia SP',
+    'terapia online adultos Brasil',
+    'acompanhamento psicológico humanizado',
+    'fortalecimento emocional psicóloga',
+    'crise existencial terapia São Paulo',
   ],
   alternates: {
     canonical: '/servicos',
   },
 };
 
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Psicoterapia',
+  provider: {
+    '@type': 'Person',
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'São Paulo' },
+    { '@type': 'Country', name: 'Brasil' },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços de Psicologia Clínica',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.title,
+        description: s.description,
+      },
+    })),
+  },
+};
+
 export default function ServicosPage() {
   return (
     <>
+      <JsonLd data={servicesSchema} />
       <section
         aria-labelledby="servicos-heading"
         className="bg-brand-ivory py-14 md:py-24"

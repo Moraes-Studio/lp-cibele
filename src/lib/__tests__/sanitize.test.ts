@@ -66,7 +66,44 @@ describe('sanitizeField', () => {
   });
 });
 
+describe('sanitizeField — edge cases', () => {
+  it('allows name with accented characters (João Silva)', () => {
+    expect(sanitizeField('João Silva').ok).toBe(true);
+  });
+
+  it('allows input with just whitespace — trims to empty, no threat', () => {
+    const result = sanitizeField('   ');
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.value).toBe('');
+  });
+
+  it('allows < alone with no closing > (incomplete tag, not an HTML tag)', () => {
+    expect(sanitizeField('preço < custo').ok).toBe(true);
+  });
+
+  it('blocks literal unicode-escape attack (backslash-u003c in input)', () => {
+    const result = sanitizeField('\\u003cscript\\u003e');
+    expect(result.ok).toBe(false);
+  });
+
+  it('blocks hex-entity attack (&#x3C;)', () => {
+    expect(sanitizeField('&#x3C;script&#x3E;').ok).toBe(false);
+  });
+
+  it('returns trimmed value for safe input with surrounding whitespace', () => {
+    const result = sanitizeField('  Ana Lima  ');
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.value).toBe('Ana Lima');
+  });
+});
+
 describe('sanitizeAll', () => {
+  it('returns ok:true and empty values for empty record', () => {
+    const result = sanitizeAll({});
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.values).toEqual({});
+  });
+
   it('returns sanitized values when all fields are safe', () => {
     faker.seed(100);
     const fields = {

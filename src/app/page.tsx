@@ -9,8 +9,21 @@ import { WhatsAppButton } from '@/components/shared/whatsapp-button';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | ${siteConfig.role}`,
-  description: siteConfig.description,
+  title: `${siteConfig.name} | Psicóloga em São Paulo e Online`,
+  description:
+    'Psicóloga clínica em São Paulo (CRP 06/45117). Atendimento presencial e online para adultos. Saúde emocional, autoconhecimento e transições de vida.',
+  keywords: [
+    'psicóloga em São Paulo',
+    'psicóloga online',
+    'terapia online adultos',
+    'psicologia clínica São Paulo',
+    'psicoterapia presencial SP',
+    'saúde emocional adultos',
+    'autoconhecimento terapia',
+    'terapia para ansiedade São Paulo',
+    'transições de vida psicóloga',
+    'agendar consulta psicóloga SP',
+  ],
   alternates: {
     canonical: '/',
   },
