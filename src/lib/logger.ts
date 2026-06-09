@@ -8,6 +8,8 @@ interface LogPayload {
 }
 
 function writeLog(payload: LogPayload): void {
+  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') return;
+
   const timestamp = new Date().toISOString();
   const { level, message, context, error } = payload;
 
