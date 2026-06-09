@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { sanitizeField } from '@/lib/sanitize';
+import { sanitizeAll } from '@/lib/sanitize';
+import { gtagConversion, ADS_CONVERSIONS } from '@/lib/gtag';
 import {
   checkContactRateLimit,
   recordContactSent,
@@ -59,7 +60,19 @@ export function useContactForm() {
 
     setSubmitState('sending');
 
-    const whatsAppMessage = buildWhatsAppMessage(data);
+    const sanitized = sanitizeAll({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      message: data.message,
+    });
+    if (!sanitized.ok) {
+      setSubmitState('error');
+      return;
+    }
+
+    const cleanData = { ...data, ...sanitized.values };
+    const whatsAppMessage = buildWhatsAppMessage(cleanData);
     const whatsAppUrl = buildWhatsAppUrl(siteConfig.phone, whatsAppMessage);
 
     if (!whatsAppUrl) {
@@ -67,15 +80,9 @@ export function useContactForm() {
       return;
     }
 
-    const fieldsToSanitize = [data.name, data.email, data.phone, data.message];
-    const hasThreat = fieldsToSanitize.some((v) => !sanitizeField(v).ok);
-    if (hasThreat) {
-      setSubmitState('error');
-      return;
-    }
-
     recordContactSent();
     setSubmitState('success');
+    gtagConversion(ADS_CONVERSIONS.form);
 
     await new Promise((resolve) => setTimeout(resolve, WHATSAPP_OPEN_DELAY_MS));
     window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
