@@ -8,7 +8,7 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
   "img-src 'self' data: blob: https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.com.br",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com",
+  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://ad.doubleclick.net https://www.google.com https://www.googleadservices.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

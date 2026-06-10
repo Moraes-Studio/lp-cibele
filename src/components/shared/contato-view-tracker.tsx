@@ -5,6 +5,7 @@ import { gtagConversion, ADS_CONVERSIONS } from '@/lib/gtag';
 
 export function ContatoViewTracker() {
   useEffect(() => {
+    // gtagConversion já verifica consent internamente
     gtagConversion(ADS_CONVERSIONS.contatoView);
   }, []);
   return null;

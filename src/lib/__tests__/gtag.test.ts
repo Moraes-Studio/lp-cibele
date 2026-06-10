@@ -1,10 +1,15 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import { gtagConversion } from '../gtag';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { gtagConversion, CONSENT_KEY } from '../gtag';
+
+beforeEach(() => {
+  localStorage.setItem(CONSENT_KEY, 'accepted');
+});
 
 afterEach(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).gtag = undefined;
+  localStorage.clear();
 });
 
 describe('gtagConversion', () => {

@@ -15,7 +15,14 @@ declare global {
   }
 }
 
+export const CONSENT_KEY = 'cookie_consent';
+
+export function hasConsent(): boolean {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem(CONSENT_KEY) === 'accepted';
+}
+
 export function gtagConversion(sendTo: string) {
-  if (!sendTo || typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+  if (!sendTo || !hasConsent() || typeof window === 'undefined' || typeof window.gtag !== 'function') return;
   window.gtag('event', 'conversion', { send_to: sendTo });
 }

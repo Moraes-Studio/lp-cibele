@@ -1,14 +1,13 @@
 import '@/config/env';
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 import { SkipLink } from '@/components/shared/skip-link';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { JsonLd } from '@/components/shared/json-ld';
+import { CookieConsent } from '@/components/shared/cookie-consent';
 import { siteConfig } from '@/config/site';
-import { GADS_ID } from '@/lib/gtag';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -137,17 +136,7 @@ export default function RootLayout({
           }}
           aria-hidden="true"
         />
-        {/^AW-\d+$/.test(GADS_ID) && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-ads-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(GADS_ID)});`}
-            </Script>
-          </>
-        )}
+        <CookieConsent />
         <JsonLd data={personSchema} />
         <SkipLink />
         <Header />
