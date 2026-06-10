@@ -34,7 +34,8 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[620px] items-center overflow-hidden bg-brand-ivory py-16 md:min-h-[720px] md:py-24"
     >
-      {/* background botanical — div CSS não é candidato a LCP */}
+      {/* preload background LCP via link hoisted to <head> */}
+      <link rel="preload" as="image" href="/background/background2.webp" type="image/webp" fetchPriority="high" />
       <div
         className="absolute inset-0 opacity-15"
         style={{ backgroundImage: 'url(/background/background2.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
@@ -126,8 +127,8 @@ export function HeroSection() {
             <Image
               src="/ilustracao/ilustracaohero.webp"
               alt="Ilustração de mulher em paz, com plantas ao redor"
-              width={560}
-              height={560}
+              width={557}
+              height={448}
               priority
               sizes="(max-width: 1023px) 480px, 704px"
               className="relative z-10 w-full max-w-[30rem] motion-safe:animate-float lg:max-w-[44rem] [filter:contrast(1.15)_brightness(0.93)_sepia(0.12)_saturate(1.05)]"
