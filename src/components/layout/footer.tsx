@@ -3,6 +3,7 @@ import type { IconType } from 'react-icons';
 import { FaWhatsapp, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { PageContainer } from '@/components/shared/page-container';
 import { buildWhatsAppUrl } from '@/components/shared/whatsapp-button';
+import { CookieRevoke } from '@/components/shared/cookie-revoke';
 import { siteConfig } from '@/config/site';
 import { navigation } from '@/config/navigation';
 import { cn } from '@/lib/utils';
@@ -84,6 +85,8 @@ export function Footer() {
               <Link href="/privacidade" className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm">
                 Política de Privacidade
               </Link>
+              <span aria-hidden="true" className="opacity-40">·</span>
+              <CookieRevoke />
               <span aria-hidden="true" className="opacity-40">·</span>
               <span>Desenvolvido por moraesStudio</span>
             </div>

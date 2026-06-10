@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { CheckCircle2 } from 'lucide-react';
 import { FaWhatsapp, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
@@ -206,6 +207,13 @@ export function ContactSection() {
 
                 <p className="text-center text-xs text-muted-foreground">
                   Todos os campos são obrigatórios.
+                </p>
+                <p className="text-center text-xs text-muted-foreground/70">
+                  Os dados informados são usados exclusivamente para envio desta mensagem via WhatsApp e não são armazenados.{' '}
+                  <Link href="/privacidade" className="underline underline-offset-2 hover:text-foreground">
+                    Política de Privacidade
+                  </Link>
+                  .
                 </p>
               </form>
             </Form>
