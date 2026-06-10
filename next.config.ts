@@ -7,7 +7,7 @@ const CONTENT_SECURITY_POLICY = [
   `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://googleads.g.doubleclick.net${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
-  "img-src 'self' data: blob: https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.com.br",
   "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
