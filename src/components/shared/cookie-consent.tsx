@@ -33,9 +33,9 @@ export function CookieConsent() {
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`}
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
-          <Script id="google-ads-init" strategy="afterInteractive">
+          <Script id="google-ads-init" strategy="lazyOnload">
             {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(GADS_ID)});`}
           </Script>
         </>
