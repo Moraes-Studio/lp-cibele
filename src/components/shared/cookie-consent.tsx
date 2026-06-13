@@ -4,36 +4,35 @@ import { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { GADS_ID, CONSENT_KEY } from '@/lib/gtag';
 
-type ConsentValue = 'accepted' | 'rejected' | null;
-
-function getStoredConsent(): ConsentValue {
-  if (typeof window === 'undefined') return null;
-  const v = localStorage.getItem(CONSENT_KEY);
-  return v === 'accepted' || v === 'rejected' ? (v as ConsentValue) : null;
-}
+type ConsentState = 'accepted' | 'dismissed' | 'pending';
 
 export function CookieConsent() {
-  const [consent, setConsent] = useState<ConsentValue>(null);
+  const [state, setState] = useState<ConsentState>('pending');
 
   useEffect(() => {
-    setConsent(getStoredConsent());
+    const stored = localStorage.getItem(CONSENT_KEY);
+    if (stored === 'accepted') setState('accepted');
+    // 'rejected' não é persistido — banner reaparece na próxima visita
 
-    const handleRevoke = () => setConsent(null);
+    const handleRevoke = () => {
+      localStorage.removeItem(CONSENT_KEY);
+      setState('pending');
+    };
     window.addEventListener('consent-revoked', handleRevoke);
     return () => window.removeEventListener('consent-revoked', handleRevoke);
   }, []);
 
   const accept = () => {
     localStorage.setItem(CONSENT_KEY, 'accepted');
-    setConsent('accepted');
+    setState('accepted');
   };
 
-  const reject = () => {
-    localStorage.setItem(CONSENT_KEY, 'rejected');
-    setConsent('rejected');
+  const dismiss = () => {
+    // Rejeitar: esconde só nesta sessão, sem salvar no localStorage
+    setState('dismissed');
   };
 
-  const gadsActive = consent === 'accepted' && /^AW-\d+$/.test(GADS_ID);
+  const gadsActive = state === 'accepted' && /^AW-\d+$/.test(GADS_ID);
 
   return (
     <>
@@ -49,7 +48,7 @@ export function CookieConsent() {
         </>
       )}
 
-      {consent === null && (
+      {state === 'pending' && (
         <div
           role="dialog"
           aria-label="Aviso de cookies"
@@ -69,7 +68,7 @@ export function CookieConsent() {
             </p>
             <div className="flex shrink-0 gap-2">
               <button
-                onClick={reject}
+                onClick={dismiss}
                 className="rounded-md border border-brand-charcoal/30 px-4 py-2 text-sm text-brand-charcoal/70 transition-colors hover:border-brand-charcoal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage"
               >
                 Rejeitar
