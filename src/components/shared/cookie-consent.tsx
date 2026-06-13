@@ -1,29 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import Script from 'next/script';
-import { GADS_ID, CONSENT_KEY } from '@/lib/gtag';
-
-type ConsentValue = 'accepted' | 'rejected' | null;
-
-function getStoredConsent(): ConsentValue {
-  if (typeof window === 'undefined') return null;
-  const v = localStorage.getItem(CONSENT_KEY);
-  return v === 'accepted' || v === 'rejected' ? (v as ConsentValue) : null;
-}
+import { GADS_ID } from '@/lib/gtag';
+import { useConsent } from './consent-context';
 
 export function CookieConsent() {
-  const [consent, setConsent] = useState<ConsentValue>(getStoredConsent);
-
-  const accept = () => {
-    localStorage.setItem(CONSENT_KEY, 'accepted');
-    setConsent('accepted');
-  };
-
-  const reject = () => {
-    localStorage.setItem(CONSENT_KEY, 'rejected');
-    setConsent('rejected');
-  };
+  const { consent, accept, reject } = useConsent();
 
   const gadsActive = consent === 'accepted' && /^AW-\d+$/.test(GADS_ID);
 

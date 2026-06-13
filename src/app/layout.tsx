@@ -7,6 +7,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { JsonLd } from '@/components/shared/json-ld';
 import { CookieConsent } from '@/components/shared/cookie-consent';
+import { ConsentProvider } from '@/components/shared/consent-context';
 import { siteConfig } from '@/config/site';
 
 const inter = Inter({
@@ -136,14 +137,16 @@ export default function RootLayout({
           }}
           aria-hidden="true"
         />
-        <CookieConsent />
-        <JsonLd data={personSchema} />
-        <SkipLink />
-        <Header />
-        <main id="main-content" tabIndex={-1}>
-          {children}
-        </main>
-        <Footer />
+        <ConsentProvider>
+          <CookieConsent />
+          <JsonLd data={personSchema} />
+          <SkipLink />
+          <Header />
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+          <Footer />
+        </ConsentProvider>
       </body>
     </html>
   );
