@@ -1,9 +1,12 @@
 'use client';
 
-import { useConsent } from './consent-context';
+import { CONSENT_KEY } from '@/lib/gtag';
 
 export function CookieRevoke() {
-  const { revoke } = useConsent();
+  const revoke = () => {
+    localStorage.removeItem(CONSENT_KEY);
+    window.dispatchEvent(new Event('consent-revoked'));
+  };
 
   return (
     <button
