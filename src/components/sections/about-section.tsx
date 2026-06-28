@@ -50,20 +50,22 @@ export function AboutSection() {
                 </p>
               </div>
               {siteConfig.crp && (
-                <p className="text-sm font-medium text-muted-foreground">{siteConfig.crp}</p>
+                <span className="inline-flex items-center rounded-full border border-brand-forest/20 bg-brand-sand/60 px-3 py-1 text-xs font-semibold tracking-wide text-brand-forest">
+                  {siteConfig.crp}
+                </span>
               )}
             </div>
           </article>
 
           {/* aside — foto da psicóloga */}
-          <aside className="w-full shrink-0 md:w-1/2">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[22rem] overflow-hidden rounded-3xl ring-1 ring-brand-forest/[0.08] shadow-[0_8px_40px_rgba(31,64,52,0.14),0_2px_10px_rgba(31,64,52,0.06)]">
+          <aside className="flex w-full shrink-0 justify-center md:w-1/2">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-[26rem] overflow-hidden rounded-3xl ring-1 ring-brand-forest/[0.08]">
               <Image
                 src="/psicologa/cibele.webp"
                 alt="Cibele Rosa, psicóloga clínica"
                 fill
-                sizes="(max-width: 768px) 100vw, 352px"
-                className="object-cover object-[50%_12%]"
+                sizes="(max-width: 768px) 100vw, 416px"
+                className="object-cover object-[68%_50%]"
                 priority
               />
             </div>

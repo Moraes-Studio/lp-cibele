@@ -23,7 +23,7 @@ export function ServicesPreviewSection() {
               href="/servicos"
               className="shrink-0 text-sm font-medium text-brand-forest underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             >
-              Ver todos os serviços
+              Ver mais detalhes
             </Link>
           </div>
 

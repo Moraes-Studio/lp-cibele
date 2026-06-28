@@ -9,4 +9,5 @@ export const siteConfig = {
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? '',
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? '',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cibelepsicologia.com.br',
+  studioUrl: process.env.NEXT_PUBLIC_STUDIO_URL ?? '',
 } as const;

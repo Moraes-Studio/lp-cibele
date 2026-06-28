@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircle2 } from 'lucide-react';
 import { FaWhatsapp, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
@@ -79,7 +80,7 @@ export function ContactSection() {
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="Como prefere ser chamada?"
+                          placeholder="Como prefere ser chamado?"
                           autoComplete="name"
                           disabled={isDisabled}
                           maxLength={100}
@@ -221,6 +222,16 @@ export function ContactSection() {
 
           {/* Coluna de confiança */}
           <div className="flex flex-col justify-center gap-10 lg:pl-2">
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-xs overflow-hidden rounded-2xl ring-1 ring-brand-forest/[0.08]">
+              <Image
+                src="/psicologa/cibele.webp"
+                alt="Cibele Rosa, psicóloga clínica"
+                fill
+                sizes="(max-width: 1023px) 320px, 280px"
+                className="object-cover object-[50%_12%]"
+              />
+            </div>
+
             <div className="space-y-3">
               <h2 className="font-serif text-xl font-medium text-brand-forest">
                 Quer me conhecer antes de decidir?
@@ -231,7 +242,7 @@ export function ContactSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3">
               {siteConfig.instagram && (
                 <SocialLink
                   href={siteConfig.instagram}

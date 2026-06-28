@@ -6,7 +6,7 @@ const steps = [
     number: '01',
     title: 'Primeiro contato',
     description:
-      'Começamos com uma conversa inicial para entender o que te trouxe até aqui e esclarecer como funciona o processo.',
+      'Começamos com uma conversa para entender o que te trouxe até aqui e como funciona o processo.',
   },
   {
     number: '02',

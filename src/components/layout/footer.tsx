@@ -46,7 +46,9 @@ export function Footer() {
             <p className="font-serif text-base font-semibold">{siteConfig.name}</p>
             <p className="text-xs text-brand-sand">{siteConfig.role}</p>
             {siteConfig.crp && (
-              <p className="text-xs text-brand-sand">{siteConfig.crp}</p>
+              <span className="mt-1 inline-flex w-fit items-center rounded-full border border-brand-ivory/20 bg-brand-ivory/10 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-brand-ivory/90">
+                {siteConfig.crp}
+              </span>
             )}
           </div>
 
@@ -88,7 +90,18 @@ export function Footer() {
               <span aria-hidden="true" className="opacity-40">·</span>
               <CookieRevoke />
               <span aria-hidden="true" className="opacity-40">·</span>
-              <span>Desenvolvido por moraesStudio</span>
+              {siteConfig.studioUrl ? (
+                <a
+                  href={siteConfig.studioUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-ivory underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-leaf rounded-sm"
+                >
+                  Desenvolvido por moraesStudio
+                </a>
+              ) : (
+                <span>Desenvolvido por moraesStudio</span>
+              )}
             </div>
           </div>
         </div>
