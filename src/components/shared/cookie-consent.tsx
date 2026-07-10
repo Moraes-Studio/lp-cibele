@@ -56,7 +56,7 @@ export function CookieConsent() {
           className="fixed bottom-0 left-0 right-0 z-50 border-t border-brand-sage/20 bg-brand-ivory px-4 py-4 shadow-lg md:px-8"
         >
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm leading-relaxed text-brand-charcoal/80">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Usamos cookies para medir o desempenho de anúncios e melhorar sua experiência.{' '}
               <a
                 href="/privacidade"
@@ -69,13 +69,13 @@ export function CookieConsent() {
             <div className="flex shrink-0 gap-2">
               <button
                 onClick={dismiss}
-                className="rounded-md border border-brand-charcoal/30 px-4 py-2 text-sm text-brand-charcoal/70 transition-colors hover:border-brand-charcoal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage"
+                className="rounded-md border border-muted-foreground/30 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage"
               >
                 Rejeitar
               </button>
               <button
                 onClick={accept}
-                className="rounded-md bg-brand-sage px-4 py-2 text-sm text-white transition-colors hover:bg-brand-sage/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage focus-visible:ring-offset-2"
+                className="rounded-md bg-brand-forest-light px-4 py-2 text-sm text-white transition-colors hover:bg-brand-forest-light/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage focus-visible:ring-offset-2"
               >
                 Aceitar
               </button>
