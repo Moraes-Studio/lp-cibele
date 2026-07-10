@@ -75,7 +75,7 @@ export function CookieConsent() {
               </button>
               <button
                 onClick={accept}
-                className="rounded-md bg-brand-sage-strong px-4 py-2 text-sm text-white transition-colors hover:bg-brand-sage-strong/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage focus-visible:ring-offset-2"
+                className="rounded-md bg-brand-forest-light px-4 py-2 text-sm text-white transition-colors hover:bg-brand-forest-light/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sage focus-visible:ring-offset-2"
               >
                 Aceitar
               </button>
